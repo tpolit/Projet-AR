@@ -49,27 +49,37 @@ int* random_hach(int n, int min, int max)
  */
 void swap(int *a, int *b) 
 {
-    int tmp[2] = a;
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 int **trie_ids(int *pair_ids)
 {
     int i;
     int j;
     int tmp[NB_SITE];
+    int sorted_pair_ids[NB_SITE];
     int **result = (int**) malloc(sizeof(int) * NB_SITE);
     for (i = 0; i < NB_SITE; i++) {
         result[i] = (int*) malloc(sizeof(int) * 2);
     }
-    
+    for (i = 0; i < NB_SITE; i++) {
+        sorted_pair_ids[i] = pair_ids[i];
+    }
     for (i = 0; i < NB_SITE; i++) {
         for (j = 0; j < NB_SITE-i-1; j++) {
-            
+            if (sorted_pair_ids[j] > sorted_pair_ids[j+1])
+                swap(&sorted_pair_ids[j], &sorted_pair_ids[j+1]);
         }
     }
 
     for (i = 0; i < NB_SITE; i++) {
-        result[i][0] = pair_ids[i];
-        result[i][1] = i;
+        for (j = 0; j < NB_SITE; j++) {
+            if (pair_ids[j] == sorted_pair_ids[i]) {
+                result[i][0] = sorted_pair_ids[i];
+                result[i][1] = j;
+            }
+        }
     }
     return result;
 }
@@ -77,7 +87,7 @@ int **trie_ids(int *pair_ids)
 /**
  * Fonction de calcul des fingers table
  */
-int ***calcul_finger(int *pair_ids) 
+int ***calcul_finger(int **sorted_pair_ids) 
 {
     int i;
     int j;
@@ -93,21 +103,24 @@ int ***calcul_finger(int *pair_ids)
             finger_tables[i][j] = (int*) malloc(sizeof(int) * 2);
         }
     }
-
+    printf("max : %d\n", sorted_pair_ids[NB_SITE-2][0]);
     for (k = 0; k < NB_SITE; k++) {
         for (i = 0; i < M; i++) {
-            value = (int) (pow(2, i) + pair_ids[k]) % (int) pow(2, M);
+            value = (int) (pow(2, i) + sorted_pair_ids[k][0]) % (int) pow(2, M);
             tmp_chord_id = __INT32_MAX__;
             tmp_mpi_id = -1;
             for (j = NB_SITE-1; j >= 0; j--) {
-                if (j == NB_SITE-1 && pair_ids[j][0] < value) {
-                    tmp_chord_id = pair_ids[0][0];
-                    tmp_mpi_id = pair_ids[0][1];
+                printf("tmp : %d, value : %d\n", sorted_pair_ids[j][0], value);
+                if (j == NB_SITE-1 && sorted_pair_ids[j][0] < value) {
+                    printf("1ere cond\n");
+                    tmp_chord_id = sorted_pair_ids[0][0];
+                    tmp_mpi_id = sorted_pair_ids[0][1];
                     break;
                 }
-                if (pair_ids[j][0] > value) {
-                    tmp_chord_id = pair_ids[j][0];
-                    tmp_mpi_id = pair_ids[j][1];
+                if (sorted_pair_ids[j][0] > value) {
+                    printf("2eme cond\n");
+                    tmp_chord_id = sorted_pair_ids[j][0];
+                    tmp_mpi_id = sorted_pair_ids[j][1];
                 }
             }
             printf("value = %d, chord id = %d, mpi_id = %d\n", value, tmp_chord_id, tmp_mpi_id);
@@ -130,14 +143,16 @@ void simulateur(void)
 
     /* Calcul des id chord des differents pairs */
     int *pair_ids = random_hach(NB_SITE, 0, pow(2, 6)-1);
+
+    int **sorted_pairs = trie_ids(pair_ids);
     printf("[");
     for (i = 0; i < NB_SITE; i++)
-        printf("%d-", pair_ids[i]);
+        printf("[%d-%d]", sorted_pairs[i][0], sorted_pairs[i][1]);
     printf("]\n");
 
     /* Calcul des finger tables de chaque processus */
 
-    int ***finger_tables = calcul_finger(pair_ids);
+    int ***finger_tables = calcul_finger(sorted_pairs);
     for (i = 0; i < NB_SITE; i++) {
         printf("\n finger table de %d : [", i);
         for (j = 0; j < M; j++) {
