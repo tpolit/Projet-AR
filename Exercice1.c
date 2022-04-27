@@ -7,18 +7,14 @@
 
 #define     NB_SITE     5
 #define     M           6
+
+/* Definition des tags d'envoi */
 #define     TAGINIT     0
 #define     LOOKUP      1
 #define     RESPONSABLE 2
 #define     RESPONSE    3
-
-/**
- * Structure représentant un doublet pour gérer le chord id et le mpi id
- */
-struct duet {
-    int a;
-    int b;
-};
+#define     INIT_LOOKUP 4
+#define     TERMINAISON 5
 
 /**
  * Structure représentant un pair
@@ -35,6 +31,7 @@ struct pair {
 
 /**
  * Fonction de hachage random des id
+ * Les id_mpi sont égaux à la case du tableau renvoyé + 1
  * @param n     : nombre d'id a calculer
  * @param min   : borne inf des id
  * @param max   : borne sup des id
@@ -72,14 +69,18 @@ void swap(int *a, int *b)
 /**
  * Fonction triant un array d'ids chord
  * @param pair_ids  : tableau non triée en entrée
- * @return un array de duet ou a = id_chord et b = mpi_rank
+ * @return  un tableau trié par rapport aux ids chords 
+ *          le tableau contient pour chaque pair une paire {id_chord, id_mpi}
  */
-struct duet *trie_ids(int *pair_ids)
+int **trie_ids(int *pair_ids)
 {
     int i;
     int j;
     int sorted_ids[NB_SITE];
-    struct duet *sorted_duet_ids = (struct duet*) malloc(sizeof(struct duet)*NB_SITE);
+    int **sorted_duet_ids = (int**) malloc(sizeof(int)*NB_SITE*2);
+    for (i = 0; i < NB_SITE; i++) {
+        sorted_duet_ids[i] = (int*) malloc(sizeof(int)*2);
+    }
 
     for (i = 0; i < NB_SITE; i++) {
         sorted_ids[i] = pair_ids[i];
@@ -94,8 +95,8 @@ struct duet *trie_ids(int *pair_ids)
     for (i = 0; i < NB_SITE; i++) {
         for (j = 0; j < NB_SITE; j++) {
             if (pair_ids[j] == sorted_ids[i]) {
-                sorted_duet_ids[i].a = sorted_ids[i];
-                sorted_duet_ids[i].b = j;
+                sorted_duet_ids[i][0] = sorted_ids[i];
+                sorted_duet_ids[i][1] = j+1; // +1 car on decales les ids a cause du simulateur
             }
         }
     }
@@ -105,7 +106,7 @@ struct duet *trie_ids(int *pair_ids)
 /**
  * Fonction de calcul des fingers table
  */
-struct duet **calcul_finger(struct duet *sorted_duet_ids) 
+int ***calcul_finger(int **sorted_duet_ids) 
 {
     int i;
     int j;
@@ -114,32 +115,34 @@ struct duet **calcul_finger(struct duet *sorted_duet_ids)
     int tmp_chord_id;
     int tmp_mpi_id;
     /* Allocation de la finger table */ 
-    struct duet **finger_tables = (struct duet**) malloc(sizeof(struct duet) * NB_SITE);
-    for (i = 0; i < M; i++) {
-        finger_tables[i] = (struct duet*) malloc(sizeof(struct duet));
+    int ***finger_tables = (int***) malloc(sizeof(int)*NB_SITE*M*2);
+    for (i = 0; i < NB_SITE; i++) {
+        finger_tables[i] = (int**) malloc(sizeof(int)*M);
+        for (j = 0; j < M; j++) {
+            finger_tables[i][j] = (int*) malloc(sizeof(int)*2);
+        }
     }
     
     for (k = 0; k < NB_SITE; k++) {
         for (i = 0; i < M; i++) {
-            value = (int) (pow(2, i) + sorted_duet_ids[k].a) % (int) pow(2, M);
+            value = (int) (pow(2, i) + sorted_duet_ids[k][0]) % (int) pow(2, M);
             tmp_chord_id = __INT32_MAX__;
             tmp_mpi_id = -1;
             for (j = NB_SITE-1; j >= 0; j--) {
-                if (j == NB_SITE-1 && sorted_duet_ids[j].a < value) {
-                    tmp_chord_id = sorted_duet_ids[0].a;
-                    tmp_mpi_id = sorted_duet_ids[0].b;
+                if (j == NB_SITE-1 && sorted_duet_ids[j][0] < value) {
+                    tmp_chord_id = sorted_duet_ids[0][0];
+                    tmp_mpi_id = sorted_duet_ids[0][1];
                     break;
                 }
-                if (sorted_duet_ids[j].a >= value) {
-                    tmp_chord_id = sorted_duet_ids[j].a;
-                    tmp_mpi_id = sorted_duet_ids[j].b;
+                if (sorted_duet_ids[j][0] >= value) {
+                    tmp_chord_id = sorted_duet_ids[j][0];
+                    tmp_mpi_id = sorted_duet_ids[j][1];
                 }
             }
-            finger_tables[k][i].a = tmp_chord_id;
-            finger_tables[k][i].b = tmp_mpi_id;
+            finger_tables[k][i][0] = tmp_chord_id;
+            finger_tables[k][i][1] = tmp_mpi_id;
         }
     }
-    
     return finger_tables;
 }
 
@@ -150,37 +153,73 @@ void simulateur(void)
 {
     int i;
     int j;
+    MPI_Status status;
 
     /* Calcul des id chord des differents pairs */
     int *pair_ids = random_hach(NB_SITE, 0, pow(2, M)-1);
-    struct duet *sorted_duet_ids = trie_ids(pair_ids);
+    printf("[");
+    for (i = 0; i < NB_SITE; i++) {
+        printf("%d,", pair_ids[i]);
+    }
+    printf("]\n");
+    int **sorted_duet_ids = trie_ids(pair_ids);
 
     /* Calcul des finger tables de chaque processus */
-    struct duet **finger_tables = calcul_finger(sorted_duet_ids);
+    int ***finger_tables = calcul_finger(sorted_duet_ids);
     for (i = 0; i < NB_SITE; i++) {
-        printf("\n finger table de %d: [", sorted_duet_ids[i].a);
+        printf("\n finger table de %d: [", sorted_duet_ids[i][0]);
         for (j = 0; j < M; j++) {
-            printf("[%d,%d]", finger_tables[i][j].a, finger_tables[i][j].b);
+            printf("[%d,%d]", finger_tables[i][j][0], finger_tables[i][j][1]);
         }
         printf("]\n");
     }
-
+    
     int final_finger[NB_SITE][M][2];
     for (i = 0; i < NB_SITE; i++) {
         for (j = 0; j < M; j++) {
-            final_finger[i][j][0] = finger_tables[i][j].a;
-            final_finger[i][j][1] = finger_tables[i][j].b;
+            final_finger[i][j][0] = finger_tables[i][j][0];
+            final_finger[i][j][1] = finger_tables[i][j][1];
         }
     }
-
+    
     /* Envoi des données aux pairs */
     for (i = 0; i < NB_SITE; i++) {
-        MPI_Send(&sorted_duet_ids[i].a, 1, MPI_INT, sorted_duet_ids[i].b+1, TAGINIT, MPI_COMM_WORLD);    
-        MPI_Send(&final_finger[i], 2*M, MPI_INT, sorted_duet_ids[i].b+1, TAGINIT, MPI_COMM_WORLD);       
+        MPI_Send(&sorted_duet_ids[i][0], 1, MPI_INT, sorted_duet_ids[i][1], TAGINIT, MPI_COMM_WORLD);    
+        MPI_Send(&final_finger[i], 2*M, MPI_INT, sorted_duet_ids[i][1], TAGINIT, MPI_COMM_WORLD);       
     }
-}
+
+    srand(time(NULL));
+    int mess[2];
+    /* Selection d'une clé aléatoire */
+    mess[0] = rand() % (int) pow(2, M);
+    /* Selection d'un pair aleatoire */
+    mess[1] = sorted_duet_ids[rand() % NB_SITE][1];
+    /* Envoi de la recherche */
+    MPI_Send(mess, 2, MPI_INT, mess[1], INIT_LOOKUP, MPI_COMM_WORLD);
+    /* Recv du resultat */
+    int recv[2];
+    MPI_Recv(mess, 2, MPI_INT, mess[1], TERMINAISON, MPI_COMM_WORLD, &status);
+    /* Send TERMINAISON a tout le monde */
+    int vide[2] = {0, 0};
+    for (i = 1; i < NB_SITE+1; i++) {
+        MPI_Send(mess, 2, MPI_INT, i, TERMINAISON, MPI_COMM_WORLD);
+    }
+}   
 
 /* ============================CODE DES PAIRS================================= */
+
+/**
+ * Fonction booléene qui vérifie que key appartient à ]a,b]
+ * @return  true    : si key appartient
+ *          false   : sinon
+ */
+int bool_contains(int a, int b, int key)
+{
+    if (a < b) {
+        a += pow(2, M) - 1;
+    }
+    return b < key && key < a;
+}
 
 /**
  * Fonction qui cherche le responsable de la clé grâce à la finger table
@@ -188,16 +227,12 @@ void simulateur(void)
 int find_next(int key, struct pair *me) 
 {
     int i;
-    int tmp = -1;
     for (i = M-1; i >= 0; i--) {
-        if (me->finger[i][0] < key && i == M-1) {
-            return me->finger[0][1];
-        }
-        if (me->finger[i][0] > key) {
-            tmp = me->finger[i][0];
+        if (bool_contains(me->chord_id, me->finger[i][0], key)) {
+            return me->finger[i][1];
         }
     }
-    return tmp;
+    return -1;
 }
 
 /**
@@ -207,31 +242,45 @@ void lookup(int key, int source, struct pair *me)
 {
     int next;
     int mess[2] = {key, source};
+    int vide[2] = {0, 0};
     if ((next = find_next(key, me)) == -1) {
-        MPI_Send(&mess, 2, MPI_INT, me->finger[0][1], RESPONSABLE, MPI_COMM_WORLD); 
+        printf("Je suis %d et le responsable de %d est %d\n", me->chord_id, key, me->succ);
+        MPI_Send(mess, 2, MPI_INT, me->succ, RESPONSABLE, MPI_COMM_WORLD);
     } else {
-        MPI_Send(&mess, 2, MPI_INT, next, LOOKUP, MPI_COMM_WORLD);
+        printf("next %d, succ %d et je suis %d\n", next, me->succ, me->mpi_rank);
+        MPI_Send(mess, 2, MPI_INT, next, LOOKUP, MPI_COMM_WORLD);
     }
 }
 
 /**
  * Fonction de Reception d'un message
  */
-void receive(struct pair *me)
+int receive(struct pair *me)
 {
     int mess[2];
+    int vide[2] = {0, 0};
     MPI_Status status;
     MPI_Recv(mess, 2, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
     switch (status.MPI_TAG) {
         case RESPONSABLE:
-            MPI_Send(1, 1, MPI_INT, mess[0], RESPONSE, MPI_COMM_WORLD);    
+            MPI_Send(vide, 2, MPI_INT, mess[1], RESPONSE, MPI_COMM_WORLD);    
+            break;
+        case RESPONSE:
+            MPI_Send(vide, 2, MPI_INT, 0, TERMINAISON, MPI_COMM_WORLD); 
             break;
         case LOOKUP:
             lookup(mess[0], mess[1], me);
             break;
+        case INIT_LOOKUP:
+            printf("Je cherche %d, je suis %d\n", mess[0], me->chord_id);
+            lookup(mess[0], mess[1], me);
+            break;
+        case TERMINAISON:
+            return -1;
         default:
             printf("Message inconnu\n");
     }
+    return 0;
 }
 
 /**
@@ -242,12 +291,7 @@ void receive_init(struct pair *me)
 {
     MPI_Status status;
     MPI_Recv(&(me->chord_id), 1, MPI_INT, 0, TAGINIT, MPI_COMM_WORLD, &status);
-    MPI_Recv(&(me->finger), 2*M+1, MPI_INT, 0, TAGINIT, MPI_COMM_WORLD, &status);
-    printf("\n finger table de %d id %d: [", me->chord_id, me -> mpi_rank);
-    for (int j = 0; j < M; j++) {
-        printf("[%d,%d]", me->finger[j][0], me->finger[j][1]);
-    }
-    printf("]\n");
+    MPI_Recv(&(me->finger), 2*M, MPI_INT, 0, TAGINIT, MPI_COMM_WORLD, &status);
 }
 
 /**
@@ -259,6 +303,10 @@ void pair_init(int rang)
     struct pair *me = (struct pair*) malloc(sizeof(struct pair));
     me->mpi_rank = rang;
     receive_init(me);
+    me->succ = me->finger[0][1];
+
+    while (receive(me) != -1) {}
+    printf("%d se termine\n", me->mpi_rank);
 }
 
 /**
