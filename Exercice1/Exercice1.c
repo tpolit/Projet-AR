@@ -4,36 +4,8 @@
 #include <time.h>
 #include <math.h>
 #include <unistd.h>
+#include "dht.h"
 
-/* Entiers globaux */
-#define     NB_SITE     5
-#define     M           6
-
-/* Definition des tags d'envoi */
-#define     TAGINIT     0
-#define     LOOKUP      1
-#define     RESPONSABLE 2
-#define     RESPONSE    3
-#define     INIT_LOOKUP 4
-#define     TERMINAISON 5
-
-/**
- * Structure représentant un finger
- */
-struct finger{
-    int chord_id;
-    int mpi_rank;
-};
-
-/**
- * Structure représentant un pair
- */
-struct pair {
-    int chord_id; // id obtenu avec la fonction de hachage
-    int mpi_rank; // rank mpi
-    int succ; // successeur
-    struct finger fingers[M]; // table des
-};
 
 /**
  * Fonction de hachage random des id
@@ -76,7 +48,8 @@ void swap(struct pair *pa,struct pair * pb){
  * 
  * @param pairs array de pairs que l'on modifie par adresse
  */
-void trie_pairs(struct pair *pairs){
+void trie_pairs(struct pair *pairs)
+{
     int i,j;
     for (i = 0; i < NB_SITE; i++){
         for (j = 0; j < NB_SITE-i-1; j++){
