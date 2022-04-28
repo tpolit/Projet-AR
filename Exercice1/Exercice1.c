@@ -1,18 +1,12 @@
-#include <mpi.h>>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <math.h>
-#include <unistd.h>
 #include "dht.h"
 
-
 /**
- * Fonction de hachage random des id
- * Les id_mpi sont égaux à la case du tableau renvoyé + 1
+ * @brief   Fonction de hachage random des id
+ *          Les id_mpi seront liés à la case du tableau renvoyé
  * @param n nombre d'id a calculer
  * @param min borne inf des id
  * @param max borne sup des id
+ * @param pairs tableau de structure pair que l'on va remplir avec les id_chord générés
  */
 void random_hach(int n, int min, int max,struct pair *pairs) 
 {
@@ -21,6 +15,7 @@ void random_hach(int n, int min, int max,struct pair *pairs)
     int j;
     srand(time(NULL));
 
+    printf("ID_CHORDS -> [");
     for (i = 0; i < n; i++) {
         rand:
         value = min + (rand() % max);
@@ -28,7 +23,9 @@ void random_hach(int n, int min, int max,struct pair *pairs)
             if (pairs[j].chord_id == value)
                 goto rand; /* id pas unique, on recalcule */
         pairs[i].chord_id = value;
+        printf("(%d)", value);
     }
+    printf("]\n");
 }
 
 /**
@@ -37,7 +34,8 @@ void random_hach(int n, int min, int max,struct pair *pairs)
  * @param pa a mettre a la position pb
  * @param pb a mettre a la position pa
  */
-void swap(struct pair *pa,struct pair * pb){
+void swap(struct pair *pa,struct pair * pb)
+{
     struct pair ptmp = *pa;
     *pa=*pb;
     *pb=ptmp;
@@ -154,10 +152,10 @@ void lookup(int key, int source, struct pair *me)
     int mess[2] = {key, source};
     int vide[2] = {0, 0};
     if (((next = find_next(key, me)) == -1)) {
-        printf("Je suis %d et le responsable de %d est %d\n", me->chord_id, key, me->succ);
+        printf("RECH -> Je suis %d et le responsable de %d est mpi_rank=%d\n", me->chord_id, key, me->succ);
         MPI_Send(mess, 2, MPI_INT, me->succ, RESPONSABLE, MPI_COMM_WORLD);
     } else {
-        printf("Le pair %d demande a %d d'executer lookup\n", me->chord_id, next);
+        printf("RECH -> Le pair %d demande a mpi_rank=%d d'executer lookup\n", me->chord_id, next);
         MPI_Send(mess, 2, MPI_INT, next, LOOKUP, MPI_COMM_WORLD);
     }
 }
@@ -179,16 +177,18 @@ int receive(struct pair *me)
     MPI_Recv(mess, 2, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
     switch (status.MPI_TAG) {
         case RESPONSABLE:
+            printf("RECH -> Je suis %d et je suis responsable de %d\n", me->chord_id, mess[0]);
             MPI_Send(vide, 2, MPI_INT, mess[1], RESPONSE, MPI_COMM_WORLD);    
             break;
         case RESPONSE:
             MPI_Send(vide, 2, MPI_INT, NB_SITE, TERMINAISON, MPI_COMM_WORLD); 
             break;
         case LOOKUP:
+            printf("RECH -> Je cherche %d, je suis %d\n", mess[0], me->chord_id);
             lookup(mess[0], mess[1], me);
             break;
         case INIT_LOOKUP:
-            printf("Je cherche %d, je suis %d\n", mess[0], me->chord_id);
+            printf("RECH -> Je cherche %d, je suis %d\n", mess[0], me->chord_id);
             lookup(mess[0], mess[1], me);
             break;
         case TERMINAISON:
@@ -217,7 +217,7 @@ void pair_init(int rang)
     pair->chord_id = recv;
     pair->succ = pair->fingers[0].mpi_rank;
 
-    printf("%d Finger Table \n",pair->chord_id);
+    printf("FINGER TABLE -> (mpi_rank=%d; id_chord=%d) : ", pair->mpi_rank, pair->chord_id);
     printf("[");
     for(int i=0 ; i< M;i ++){
         printf("%d ",pair->fingers[i].chord_id);
@@ -233,47 +233,40 @@ void pair_init(int rang)
  */
 void simulateur(void)
 {
-    struct pair *pairs = malloc(NB_SITE * sizeof(struct pair));  
     MPI_Status status;
     int i;
-    //int static_chord_ids[NB_SITE] = {1, 6, 7, 50, 56};
+    int mess[2];
+    int recv[2];
+    int vide[2] = {0, 0};
+    struct pair *pairs = malloc(NB_SITE * sizeof(struct pair));  
+
     random_hach(NB_SITE, 0, pow(2,M)-1, pairs);    
     for(int i=0; i< NB_SITE ; i++){
-        //pairs[i].chord_id = static_chord_ids[i];
         pairs[i].mpi_rank=i;
     }
 
+    /* Triage de l'array */
     trie_pairs(pairs);
-    printf("[");
-    for (i = 0 ; i < NB_SITE; i++) {
-        printf(" ID %d Rank %d \n",pairs[i].chord_id,pairs[i].mpi_rank);
-    }
-    printf("]\n");
 
-    // Calcul de la finger table
+    /* Calcul des finger table */
     calcul_finger(pairs);
 
-    // Envoi de la finger table de chaque pair
+    /* Envoi de la finger table de chaque pair */
     for (int i=0 ; i<NB_SITE ;i ++) {
         MPI_Send(&(pairs[i].chord_id),1,MPI_INT,pairs[i].mpi_rank,TAGINIT,MPI_COMM_WORLD);
         MPI_Send(pairs[i].fingers,M*sizeof(struct finger),MPI_CHAR,pairs[i].mpi_rank,TAGINIT,MPI_COMM_WORLD);
     }
 
     srand(time(NULL));
-    int mess[2];
     /* Selection d'une clé aléatoire */
     mess[0] = rand() % (int) pow(2, M);
-    //mess[0] = 64;
     /* Selection d'un pair aleatoire */
     mess[1] = pairs[rand() % NB_SITE].mpi_rank;
-    //mess[1] = 2;
     /* Envoi de la recherche */
     MPI_Send(mess, 2, MPI_INT, mess[1], INIT_LOOKUP, MPI_COMM_WORLD);
     /* Recv du resultat */
-    int recv[2];
     MPI_Recv(recv, 2, MPI_INT, mess[1], TERMINAISON, MPI_COMM_WORLD, &status);
     /* Send TERMINAISON a tout le monde */
-    int vide[2] = {0, 0};
     for (i = 0; i < NB_SITE; i++) {
         MPI_Send(vide, 2, MPI_INT, i, TERMINAISON, MPI_COMM_WORLD);
     }

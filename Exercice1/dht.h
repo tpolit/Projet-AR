@@ -1,4 +1,11 @@
-/* Entiers globaux */
+#include <mpi.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <math.h>
+#include <unistd.h>
+
+/* Entiers du système */
 #define     NB_SITE     5
 #define     M           6
 
