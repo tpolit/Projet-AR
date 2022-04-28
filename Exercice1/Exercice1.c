@@ -1,3 +1,13 @@
+/**
+ * @file Exercice1.c
+ * @author Firas Jebari & Titouan Polit
+ * @brief Recherche d'une clé en distribué avec calcul des finger table par un simulateur
+ * @version 1
+ * @date 2022-04-28
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include "dht.h"
 
 /**

@@ -1,3 +1,13 @@
+/**
+ * @file Exercice2.c
+ * @author Firas Jebari & Titouan Polit
+ * @brief Calcul des finger tables en distribué
+ * @version 1
+ * @date 2022-04-28
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #include "dht.h"
 
 /*
@@ -9,6 +19,7 @@
 /**
  * @brief   Fonction de hachage random des id
  *          Les id_mpi seront liés à la case du tableau renvoyé
+ * 
  * @param n nombre d'id a calculer
  * @param min borne inf des id
  * @param max borne sup des id
