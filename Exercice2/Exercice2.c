@@ -10,6 +10,9 @@
  */
 #include "dht.h"
 
+/* Compteur de messages */
+int compteur = 0;
+
 /*
  * ============================================================================
  *                           FONCTIONS POUR CHORD
@@ -144,6 +147,7 @@ void leader_work(int rang, int chord_id)
     /* Envoi de la finger table de chaque pair */
     for (int i=0; i < NB_SITE; i++) {
         MPI_Send(pairs[i].fingers, M*sizeof(struct finger), MPI_CHAR, pairs[i].mpi_rank, TAGINIT, MPI_COMM_WORLD);
+        compteur++;
     }
 }
 
@@ -199,18 +203,22 @@ void recevoir_out(struct process *me, int recv[2], MPI_Status status)
             mess[1] = recv[1]-1;
             if (status.MPI_SOURCE == me->vg) {
                 MPI_Send(mess, 2, MPI_INT, me->vd, OUT, MPI_COMM_WORLD);
+                compteur++;
             }
             if (status.MPI_SOURCE == me->vd) {
                 MPI_Send(mess, 2, MPI_INT, me->vg, OUT, MPI_COMM_WORLD);
+                compteur++;
             }
         } else {
             mess[0] = recv[0];
             mess[1] = -1;
             if (status.MPI_SOURCE == me->vg) {
                 MPI_Send(mess, 2, MPI_INT, me->vg, IN, MPI_COMM_WORLD);
+                compteur++;
             }
             if (status.MPI_SOURCE == me->vd) {
                 MPI_Send(mess, 2, MPI_INT, me->vd, IN, MPI_COMM_WORLD);
+                compteur++;
             }
         }
     } else {
@@ -239,9 +247,11 @@ void recevoir_in(struct process *me, int recv[2], MPI_Status status)
     if (recv[0] != me->mpi_rank) {
         if (status.MPI_SOURCE == me->vg) {
             MPI_Send(mess, 2, MPI_INT, me->vd, IN, MPI_COMM_WORLD);
+            compteur++;
         } 
         if (status.MPI_SOURCE == me->vd) {
             MPI_Send(mess, 2, MPI_INT, me->vg, IN, MPI_COMM_WORLD);
+            compteur++;
         }
     } else {
         (me->nb_in)++;
@@ -274,9 +284,11 @@ void recevoir_election(struct process *me)
         case LEADER:
             /* On fait passer le message d'annonce du leader */
             MPI_Send(recv, 2, MPI_INT, me->vd, LEADER, MPI_COMM_WORLD);
+            compteur++;
             printf("Pour (mpi_rank=%d) l'election est finie %d est le chef\n", me->mpi_rank, recv[0]);
             /* Envoi au leader de mon chord_id */
             MPI_Send(&(me->chord_id), 1, MPI_INT, recv[0], CHORDID, MPI_COMM_WORLD);
+            compteur++;
             me->state = ENDELEC;
             break;
         default:
@@ -296,6 +308,7 @@ void annonce_election(struct process *me)
     int recv[2];
     int mess[2] = {me->mpi_rank, 0};
     MPI_Send(mess, 2, MPI_INT, me->vd, LEADER, MPI_COMM_WORLD);
+    compteur++;
     MPI_Recv(recv, 2, MPI_INT, me->vg, LEADER, MPI_COMM_WORLD, &status);
 }
 
@@ -310,7 +323,9 @@ void initier_etape(struct process *me)
     int mess[2] = {me->mpi_rank, pow(2, me->etape)};
     me->nb_in = 0;
     MPI_Send(mess, 2, MPI_INT, me->vd, OUT, MPI_COMM_WORLD);
+    compteur++;
     MPI_Send(mess, 2, MPI_INT, me->vg, OUT, MPI_COMM_WORLD);
+    compteur++;
 }
 
 
@@ -376,7 +391,9 @@ void simulateur_election()
     /* Envoi aux processus si ils sont candidats ou pas */
     for (i = 0; i < NB_SITE; i++) {
         MPI_Send(&isCandidat[i], 1, MPI_INT, i, INIT, MPI_COMM_WORLD);
+        compteur++;
         MPI_Send(&pairs[i], 1, MPI_INT, i, INIT, MPI_COMM_WORLD);
+        compteur++;
     }
 }
 
@@ -400,10 +417,12 @@ int main(int argc, char* argv[]) {
         simulateur_election();
     } else {
         tmp = election(rang);
+        printf("ELECTION -> %d : %d\n", rang, compteur);
         if (tmp->state == ELU) {
             leader_work(rang, tmp->chord_id);
         }
         pair_init(rang, tmp->chord_id);
+        printf("FIN -> %d : %d\n", rang, compteur);
     }
     MPI_Finalize();
     return 0;
