@@ -391,9 +391,7 @@ void simulateur_election()
     /* Envoi aux processus si ils sont candidats ou pas */
     for (i = 0; i < NB_SITE; i++) {
         MPI_Send(&isCandidat[i], 1, MPI_INT, i, INIT, MPI_COMM_WORLD);
-        compteur++;
         MPI_Send(&pairs[i], 1, MPI_INT, i, INIT, MPI_COMM_WORLD);
-        compteur++;
     }
 }
 

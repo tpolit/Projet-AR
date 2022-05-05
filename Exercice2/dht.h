@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 /* Entiers du système */
-#define     NB_SITE 5
+#define     NB_SITE 3
 #define     M       6
 
 /* Definition des tags d'envoi pour chord */
@@ -33,7 +33,7 @@
 /**
  * Structure représentant un finger
  */
-struct finger{
+struct finger {
     int chord_id;
     int mpi_rank;
 };
