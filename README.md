@@ -37,3 +37,10 @@ Durant l'election le pair peut être dans 4 états.
 
 ## Exercice 3
 
+- Comme exercice 1 : calcul des finger table par le simulateur + calcul des inverses
+- Tirage aleatoire d'un nouveau pair unique, et on lui donne un contact dans l'anneau
+- Le nouveau pair envoie son id chord au contact en lui demandant de faire un lookup pour trouver son responsable -> 1 msg + Lookup
+- Le contact lance le lookup et le responsable est renvoyé au nouveau pair
+- Le nouveau pair demande au responsable de dire aux pairs de sa table inverse de recalculer leur finger table avec l'id du nouveau pair -> N msg dans le pire des cas
+- Le nouveau pair lance un message qui fait le tour de l'anneau pour connaitre tous les id chord de l'anneau pour pouvoir calculer sa finger table -> N msg
+- Le nouveau pair envoie au simulateur qu'il s'est bien inséré

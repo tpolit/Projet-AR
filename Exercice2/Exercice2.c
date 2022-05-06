@@ -96,19 +96,19 @@ void calcul_finger(struct pair *pairs)
     for (k = 0; k < NB_SITE; k++) {
         /* i : pour le calcul de la puissance de 2 */
         for (i = 0; i < M; i++) {
-            value = (int) (pow(2,i)+pairs[k].chord_id % (int) pow(2,M));
+            value = (int) (pow(2,i)+pairs[k].chord_id) % (int) pow(2,M);
             /* j : indice de l'entrée dans la table des fingers de k */
             for (j = NB_SITE-1; j >= 0; j--) {
                 if (j == NB_SITE-1 && pairs[j].chord_id < value){
-                    tmp_finger.chord_id=pairs[0].chord_id;
-                    tmp_finger.mpi_rank=pairs[0].mpi_rank;
-                    pairs[k].fingers[i]=(tmp_finger);
+                    tmp_finger.chord_id = pairs[0].chord_id;
+                    tmp_finger.mpi_rank = pairs[0].mpi_rank;
+                    pairs[k].fingers[i] = tmp_finger;
                     break;
                 }
-                if (pairs[j].chord_id>=value){
-                    tmp_finger.chord_id=pairs[j].chord_id;
-                    tmp_finger.mpi_rank=pairs[j].mpi_rank;
-                    pairs[k].fingers[i]=tmp_finger;
+                if (pairs[j].chord_id >= value){
+                    tmp_finger.chord_id = pairs[j].chord_id;
+                    tmp_finger.mpi_rank = pairs[j].mpi_rank;
+                    pairs[k].fingers[i] = tmp_finger;
                 }
             }
         }

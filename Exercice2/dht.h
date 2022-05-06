@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 /* Entiers du système */
-#define     NB_SITE 3
+#define     NB_SITE 5
 #define     M       6
 
 /* Definition des tags d'envoi pour chord */
