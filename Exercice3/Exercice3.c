@@ -38,34 +38,142 @@ void random_hach(int n, int min, int max,struct pair *pairs)
     printf("]\n\n");
 }
 
-/**
- * @brief   Fonction d'echange de deux valeurs pour le tri a bulle
- * 
- * @param pa a mettre a la position pb
- * @param pb a mettre a la position pa
- */
-void swap(struct pair *pa,struct pair * pb)
+void swap(void * a, void * b, size_t len)
 {
-    struct pair ptmp = *pa;
-    *pa=*pb;
-    *pb=ptmp;
+    unsigned char * p = a, * q = b, tmp;
+    for (size_t i = 0; i != len; ++i){
+        tmp = p[i];
+        p[i] = q[i];
+        q[i] = tmp;
+    }
 }
+
+
+
+void trie_fingers(struct finger *fingers,int size)
+{
+    int i,j;
+    for (i = 0; i < size; i++){
+        for (j = 0; j < size-i-1; j++){
+            if (fingers[j].chord_id > fingers[j+1].chord_id){
+                swap(&fingers[j],&fingers[j+1],sizeof(struct finger));
+            }
+        }
+    }
+}
+
+void trie_tab(int *tab,int size)
+{
+    int i,j;
+    for (i = 0; i < size; i++){
+        for (j = 0; j < size-i-1; j++){
+            if (tab[j] > tab[j+1]){
+                swap(&tab[j],&tab[j+1],sizeof(int));
+            }
+        }
+    }
+}
+
+
 
 /**
  * @brief : Fonction triant un array de pairs en fonction de leur chord id
  * 
  * @param pairs array de pairs que l'on modifie par adresse
  */
-void trie_pairs(struct pair *pairs)
+void trie_pairs(struct pair *pairs,int size)
 {
     int i,j;
-    for (i = 0; i < NB_SITE; i++){
-        for (j = 0; j < NB_SITE-i-1; j++){
+    for (i = 0; i < size; i++){
+        for (j = 0; j < size-i-1; j++){
             if (pairs[j].chord_id > pairs[j+1].chord_id){
-                swap(&pairs[j],&pairs[j+1]);
+                swap(&pairs[j],&pairs[j+1],sizeof(struct pair));
             }
         }
     }
+}
+
+
+/**
+ * @brief Enelever les doublons d'un tableau de finger 
+ *  
+ * @param finger Le tableau de finger
+ * @param size Taille du tableau    
+ * @return int Nouvelle taille
+ */
+
+int remove_duplicates(struct finger *finger,int size)
+{
+    int i,j,k;
+    for(int i=0 ; i< size;i ++){
+        for(int j= i+1; j<size ; j++){
+           if(finger[i].chord_id==finger[j].chord_id){
+               for(k=j ;k < size-1;k++)
+               {
+                   finger[k]=finger[k+1];
+               }
+               size--;
+               j--;
+           }
+        }
+    }
+    return size;
+
+
+}
+
+void recalcul_finger(struct pair *me,int *new_pair)
+{
+    int i;
+    int j;
+    int k;
+    int value;
+    int size;
+    int cpt=0;
+    struct finger *tmp_fingers= malloc(sizeof(struct finger)*M);
+    int new_finger= new_pair[0];
+    int new_mpi_rank=new_pair[1];
+    for(i=0 ; i<M ; i++){
+        tmp_fingers[i].chord_id=me->fingers[i].chord_id;
+        tmp_fingers[i].mpi_rank=me->fingers[i].mpi_rank;
+
+    }
+    //On rajoute le nouveau pair dans la finger table temporaire
+    size=remove_duplicates(tmp_fingers,M);
+    tmp_fingers[size].chord_id=new_finger;
+    tmp_fingers[size].mpi_rank=NB_SITE-1;
+    trie_fingers(tmp_fingers,size+1);
+
+    
+
+    for(i= 0 ; i< M ;i++){
+        value = (int) (pow(2,i)+me->chord_id) % (int) pow(2,M);
+        for(j=size ; j>=0; j--){
+            //printf("TMP_finger %d\n",tmp_fingers[j].chord_id);
+            if(j== size && value>tmp_fingers[j].chord_id){
+                me->fingers[i].chord_id=tmp_fingers[0].chord_id;
+                me->fingers[i].mpi_rank=tmp_fingers[0].mpi_rank;
+
+            }
+            if(tmp_fingers[j].chord_id>= value){
+                me->fingers[i].chord_id=tmp_fingers[j].chord_id;
+                me->fingers[i].mpi_rank=tmp_fingers[j].mpi_rank;
+            }
+        }
+    }
+    me->succ=me->fingers[0].mpi_rank;
+    
+    printf("Nouvelle finger table de %d ",me->chord_id);
+    printf("[");
+    for(int i=0 ; i< M ; i++){
+        printf("%d ",me->fingers[i].chord_id);
+    }
+    printf("]\n");
+
+
+
+    
+
 }
 
 /**
@@ -74,7 +182,7 @@ void trie_pairs(struct pair *pairs)
  * @param pairs On calcul la table des fingers et on l'assigne a pair->finger
  *                pour chaque pair
  */
-void calcul_finger(struct pair *pairs)
+void calcul_finger(struct pair *pairs,int size)
 {
     int i;
     int j;
@@ -83,13 +191,13 @@ void calcul_finger(struct pair *pairs)
     struct finger tmp_finger;
 
     //k : indice du pair à initialiser
-    for (k = 0; k < NB_SITE; k++) {
-        //i : pour le calcul de la puissance de 2
+    for (k = 0; k < size; k++) {
+        //i : indice dans la table des fingers
         for (i = 0; i < M; i++) {
             value = (int) (pow(2,i)+pairs[k].chord_id) % (int) pow(2,M);
-            //j : indice de l'entrée dans la table des fingers de k
-            for (j = NB_SITE-1; j >= 0; j--) {
-                if (j == NB_SITE-1 && pairs[j].chord_id < value){
+            //j : indice tous les pairs dans l'ordre croissant
+            for (j = size-1; j >= 0; j--) {
+                if (j == size -1 && pairs[j].chord_id < value){
                     tmp_finger.chord_id=pairs[0].chord_id;
                     tmp_finger.mpi_rank=pairs[0].mpi_rank;
                     pairs[k].fingers[i]=(tmp_finger);
@@ -103,6 +211,7 @@ void calcul_finger(struct pair *pairs)
             }
         }
     }
+
 }
 
 /**
@@ -111,17 +220,17 @@ void calcul_finger(struct pair *pairs)
  * @param pairs On calcul la table des reverse et on l'assigne a pair->reverse
  *                pour chaque pair
  */
-void calcul_reverse(struct pair *pairs) 
+void calcul_reverse(struct pair *pairs,int size) 
 {
     int i;
     int j;
     int k;
     int cpt;
     //i : indice du pair à initialiser
-    for (i = 0; i < NB_SITE; i++) {
+    for (i = 0; i < size; i++) {
         cpt = 0;
         //j : indice de la table des fingers que l'on parcourt
-        for (j = 0; j < NB_SITE; j++) {
+        for (j = 0; j < size; j++) {
             // si la table des fingers est celle du pair que l'on initialise on continue
             if (j == i)
                 continue;
@@ -137,7 +246,7 @@ void calcul_reverse(struct pair *pairs)
             }
         }
         // remplissage du reste de la table avec des -1
-        while (cpt < NB_SITE-1) {
+        while (cpt < size) {
             pairs[i].reverse[cpt].chord_id = -1;
             pairs[i].reverse[cpt].mpi_rank = -1;
             cpt++;
@@ -210,6 +319,75 @@ void lookup(int key, int source, struct pair *me)
     }
 }
 
+
+
+/**
+ * @brief Fonction qu'exécute le nouveau pair qui veut s'insérer dans la DHT
+ *        il attend la réception de son ID et du pair à contacter
+ * 
+ *  
+ * 
+ */
+
+void wait_insertion()
+{
+    struct pair *pair= malloc(sizeof(struct pair));
+    int vide[2];
+    int mess[2];
+    int recv[2];
+    int ids[NB_SITE-1];
+    int indice=0;
+    int value;
+    int contact;
+    MPI_Status status;
+    MPI_Recv(mess, 2, MPI_INT, NB_SITE, INSERT, MPI_COMM_WORLD,&status);
+    pair->mpi_rank=NB_SITE-1;
+    pair->chord_id=mess[0];
+    contact=mess[1];
+    sleep(1);
+    printf("ID : %d ---> %d \n",mess[0],mess[1]);
+
+    //Le nouveau pair envoie un msg avec son id à son CONTACT pour  le lookup
+    mess[0]= pair->chord_id;
+    mess[1]= pair->mpi_rank;
+    MPI_Send(mess,2,MPI_INT,contact,INSERT,MPI_COMM_WORLD);
+    //Il attend la reponse qui contient son successeur
+    MPI_Recv(recv,2,MPI_INT,MPI_ANY_SOURCE,RESPONSE,MPI_COMM_WORLD,&status);
+    //Le nouveau pair informe son responsable de dire aux pairs de sa table inverse de recalculer leur finger table avec son id 
+    pair->succ=recv[1];
+    MPI_Send(mess,2,MPI_INT,pair->succ,ASK_RECALCUL,MPI_COMM_WORLD);
+    //Il envoie un message qui fait le tour de l'anneau ou chaque pair met son id
+    MPI_Send(ids,NB_SITE-1,MPI_INT,pair->succ,FINGER,MPI_COMM_WORLD);
+    MPI_Send(&indice,1,MPI_INT,pair->succ,FINGER,MPI_COMM_WORLD);
+    MPI_Recv(ids,6,MPI_INT,MPI_ANY_SOURCE,FINGER,MPI_COMM_WORLD,&status);
+    
+
+    for(int i=0 ;i< M; i++){
+            value = (int) (pow(2,i)+pair->chord_id) % (int) pow(2,M);
+            for(int j= NB_SITE-2; j>= 0 ;j--){
+                if (j == NB_SITE-2 && ids[j] < value){
+                    pair->fingers[i].chord_id=ids[0];
+                    break;
+                }
+                if (ids[j]>=value){
+                    pair->fingers[i].chord_id=ids[j];
+                }
+                
+            }   
+    }
+
+    trie_tab(ids,M);
+    for(int i=0 ; i< M; i++){
+        printf(" %d ",pair->fingers[i].chord_id);
+
+    }
+
+    //Envoie d'un message de terminaison au simulateur
+    MPI_Send(vide,2,MPI_INT,NB_SITE,TERMINAISON,MPI_COMM_WORLD);
+    MPI_Recv(vide,2,MPI_INT,MPI_ANY_SOURCE,TERMINAISON,MPI_COMM_WORLD,&status);
+
+
+}
 /**
  * @brief   Fonction gerant les receive pour les pairs, on se bloque
  *          en MPI_Recv et apres on agit en fonction du TAG du message
@@ -221,28 +399,59 @@ void lookup(int key, int source, struct pair *me)
  */
 int receive(struct pair *me)
 {
-    int mess[2];
+    int mess[NB_SITE-1];
+    int send[2];
+    int i;
+    int indice;
+    int new_pair;
     int vide[2] = {0, 0};
     MPI_Status status;
-    MPI_Recv(mess, 2, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+    MPI_Recv(mess, NB_SITE-1, MPI_INT, MPI_ANY_SOURCE, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
     switch (status.MPI_TAG) {
         case RESPONSABLE:
-            printf("RECH -> Je suis %d et je suis responsable de %d\n", me->chord_id, mess[0]);
-            MPI_Send(vide, 2, MPI_INT, mess[1], RESPONSE, MPI_COMM_WORLD);    
+            printf("RECH -> Je suis %d et je suis responsable de %d, j'envoie à : %d \n", me->chord_id, mess[0],mess[1]);
+            send[0]=me->chord_id;
+            send[1]=me->mpi_rank;
+            MPI_Send(send, 2, MPI_INT, mess[1], RESPONSE, MPI_COMM_WORLD);    
             break;
         case RESPONSE:
             MPI_Send(vide, 2, MPI_INT, NB_SITE, TERMINAISON, MPI_COMM_WORLD); 
             break;
         case LOOKUP:
-            printf("RECH -> Je cherche %d, je suis %d\n", mess[0], me->chord_id);
+            //printf("RECH -> Je cherche %d, je suis %d\n", mess[0], me->chord_id);
             lookup(mess[0], mess[1], me);
             break;
         case INIT_LOOKUP:
             printf("RECH -> Je cherche %d, je suis %d\n", mess[0], me->chord_id);
             lookup(mess[0], mess[1], me);
             break;
+        case INSERT:
+            printf("INSERT  -> le processus %d veut s'insérer\n",mess[0]);
+            lookup(mess[0],mess[1],me);
+            break;
         case TERMINAISON:
             return -1;
+        case ASK_RECALCUL:
+            //Le pair demande à tout les pairs de sa table inverse de recalculer leur finger table avec le nouvel id
+            i=0;
+            new_pair=status.MPI_SOURCE;
+            while( (me->reverse[i].chord_id)!=-1){
+                MPI_Send(mess,2,MPI_INT,me->reverse[i].mpi_rank,RECALCUL,MPI_COMM_WORLD);
+                i++;
+            }
+            break;
+        case RECALCUL:
+            recalcul_finger(me,mess);
+            break;
+        case FINGER:
+            MPI_Recv(&indice,1,MPI_INT,MPI_ANY_SOURCE,FINGER,MPI_COMM_WORLD,&status);
+            mess[indice]=me->chord_id;
+            indice++;
+            printf("\n");
+            MPI_Send(mess,NB_SITE-1,MPI_INT,me->succ,FINGER,MPI_COMM_WORLD);
+            MPI_Send(&indice,1,MPI_INT,me->succ,FINGER,MPI_COMM_WORLD);
+            break;
+
         default:
             printf("Message inconnu\n");
     }
@@ -267,20 +476,26 @@ void pair_init(int rang)
     MPI_Recv(&(pair->fingers), M*sizeof(struct finger), MPI_CHAR, MPI_ANY_SOURCE, TAGINIT, MPI_COMM_WORLD, &status);
     MPI_Recv(&(pair->reverse), (NB_SITE-1)*sizeof(struct finger), MPI_CHAR, MPI_ANY_SOURCE, TAGINIT, MPI_COMM_WORLD, &status);
     // receive de la table reverse
-    pair->chord_id = recv;
+    pair->chord_id = recv;      
     pair->succ = pair->fingers[0].mpi_rank;
 
-    printf("FINGER TABLE -> (mpi_rank=%d; id_chord=%d) : [", pair->mpi_rank, pair->chord_id);
+    printf(" FINGER TABLE -> (mpi_rank=%d; id_chord=%d) : [", pair->mpi_rank, pair->chord_id);
     for(i = 0 ; i < M; i++){
         printf("%d ", pair->fingers[i].chord_id);
     }
-    printf("]\n");
 
+    printf("]\n");
+    sleep(1);
     printf("REVERSE TABLE -> (mpi_rank=%d; id_chord=%d) : [", pair->mpi_rank, pair->chord_id);
     for (i = 0; i < NB_SITE-1; i++) {
         printf("%d ", pair->reverse[i].chord_id);
     }
-    printf("]\n\n");
+    printf("]\n");
+    sleep(1);
+
+
+    
+
 
     while(receive(pair)!=-1) {}
 }
@@ -296,42 +511,55 @@ void simulateur(void)
     int mess[2];
     int recv[2];
     int vide[2] = {0, 0};
+    int id_insert;
+    int unique= 0;
     struct pair *pairs = malloc(NB_SITE * sizeof(struct pair));  
 
-    random_hach(NB_SITE, 0, pow(2,M)-1, pairs);    
-    for(int i=0; i< NB_SITE ; i++){
+    random_hach(NB_SITE-1, 0, pow(2,M)-1, pairs);    
+    for(int i=0; i< NB_SITE-1; i++){
         pairs[i].mpi_rank=i;
     }
 
     /* Triage de l'array */
-    trie_pairs(pairs);
+    trie_pairs(pairs,NB_SITE-1);
 
     /* Calcul des finger table */
-    calcul_finger(pairs);
+    calcul_finger(pairs,NB_SITE-1);
 
     /* Calcul des tables reverse */
-    calcul_reverse(pairs);
+    calcul_reverse(pairs,NB_SITE-1);
    
     /* Envoi de la finger table de chaque pair */
-    for (int i=0 ; i<NB_SITE ;i ++) {
+    for (int i=0 ; i<NB_SITE-1 ;i ++) {
         MPI_Send(&(pairs[i].chord_id),1,MPI_INT,pairs[i].mpi_rank,TAGINIT,MPI_COMM_WORLD);
         MPI_Send(pairs[i].fingers, M*sizeof(struct finger), MPI_CHAR,pairs[i].mpi_rank, TAGINIT, MPI_COMM_WORLD);
         MPI_Send(pairs[i].reverse, (NB_SITE-1)*sizeof(struct finger), MPI_CHAR,pairs[i].mpi_rank, TAGINIT, MPI_COMM_WORLD);
     }
 
-    /* Sleep pour les print */
     sleep(1);
-
+    //Tirage de l'id du nouveau proc à insérer et du pair qu'il peut contacter
     srand(time(NULL));
-    /* Selection d'une clé aléatoire */
-    mess[0] = rand() % (int) pow(2, M);
-    /* Selection d'un pair aleatoire */
-    mess[1] = pairs[rand() % NB_SITE].mpi_rank;
-    /* Envoi de la recherche */
-    MPI_Send(mess, 2, MPI_INT, mess[1], INIT_LOOKUP, MPI_COMM_WORLD);
-    /* Recv du resultat */
-    MPI_Recv(recv, 2, MPI_INT, mess[1], TERMINAISON, MPI_COMM_WORLD, &status);
-    /* Send TERMINAISON a tout le monde */
+    while(!(unique)){
+            rand2:
+            id_insert= rand() % (int) pow(2, M);
+            for(int i=0 ; i< NB_SITE-1 ;i++){
+                if(pairs[i].chord_id == id_insert){
+                    unique=0;
+                    goto rand2;
+
+                }
+            }
+            unique=1;
+    }
+    mess[0]= id_insert;
+    mess[1]= rand()% (NB_SITE -1);
+   
+    //Envoie de son id au nouveau pair à insérer
+    MPI_Send(mess, 2, MPI_INT, NB_SITE-1, INSERT, MPI_COMM_WORLD);
+    //Attente de la terminaison
+    MPI_Recv(recv, 2, MPI_INT, MPI_ANY_SOURCE, TERMINAISON, MPI_COMM_WORLD, &status);
+    pairs[NB_SITE-1].chord_id = id_insert;
+    pairs[NB_SITE-1].mpi_rank=NB_SITE-1;
     for (i = 0; i < NB_SITE; i++) {
         MPI_Send(vide, 2, MPI_INT, i, TERMINAISON, MPI_COMM_WORLD);
     }
@@ -342,17 +570,24 @@ int main(int argc, char* argv[]){
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &nb_proc);
 
+    
     if (nb_proc != NB_SITE+1) {
         printf("Nombre de processus incorrect !\n");
         MPI_Finalize();
         exit(2);
     }
+
     MPI_Comm_rank(MPI_COMM_WORLD,&rang);
 
     if (rang == NB_SITE) {
         simulateur();
     } else {
-        pair_init(rang);
+        //Par convention le pair qui s'insère a le rang NB_SITE -1
+        if(rang == NB_SITE- 1){ 
+            wait_insertion();
+        }else{
+            pair_init(rang);
+        }
     }
     MPI_Finalize();
     return 0;
