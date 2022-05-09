@@ -1,5 +1,7 @@
 # Distributed Algorithmic Project
 
+## Pour lancer les tests, executer Launch.sh
+
 ## Exercice 1 
 
 Mise en place d'une table de hachage distribué construite par un simulateur qui envoie aux pairs leur finger table et leur id.
