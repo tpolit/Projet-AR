@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet AR DHT Chord:  Fichier source de Exercice1/dht.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Projet AR DHT Chord
+   </div>
+   <div id="projectbrief">Projet de fin de semestre de l&#39;UE d&#39;algorithmique répartie.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_a8c4f23cf9d5f3af14b7e58910ddae7a.html">Exercice1</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">dht.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;mpi.h&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;time.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">/* Entiers du système */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define     NB_SITE     5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define     M           6</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/* Definition des tags d&#39;envoi */</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define     TAGINIT     0</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define     LOOKUP      1</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define     RESPONSABLE 2</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define     RESPONSE    3</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#define     INIT_LOOKUP 4</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#define     TERMINAISON 5</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structfinger.html">   27</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structfinger.html">finger</a> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">int</span> chord_id;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">int</span> mpi_rank;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="structpair.html">   40</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structpair.html">pair</a> {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">int</span> chord_id;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">int</span> mpi_rank;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">int</span> succ;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structfinger.html">finger</a> fingers[M];</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#a0cf0fd0ef9562c2ef1aef4dd9522b35f">random_hach</a>(<span class="keywordtype">int</span> n, <span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max,<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *pairs);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#a3743b936b4d80bb194f8bcd3290e9ddb">swap</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *pa,<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *pb);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#aa4ffd801262b2cddeeeec11afb5c8923">trie_pairs</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *pairs);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#ae63971d7267352204193312eacd9de1f">calcul_finger</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *pairs);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keywordtype">int</span> <a class="code hl_function" href="_exercice1_8c.html#a6b2fbb9e3eb1768c8c7c12141d70c23d">bool_contains</a>(<span class="keywordtype">int</span> a, <span class="keywordtype">int</span> b, <span class="keywordtype">int</span> key);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keywordtype">int</span> <a class="code hl_function" href="_exercice1_8c.html#a446ae2a779c161a59924314872c2d996">find_next</a>(<span class="keywordtype">int</span> key, <span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *<a class="code hl_struct" href="structpair.html">pair</a>);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#a4e110b3653e74210e55d306870dd8a40">lookup</a>(<span class="keywordtype">int</span> key, <span class="keywordtype">int</span> source, <span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *me);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">int</span> <a class="code hl_function" href="_exercice1_8c.html#a66b01f5833de13bafd945b22d1151234">receive</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *me);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#aa275ac8e5253bfc3150613b1d5483baa">pair_init</a>(<span class="keywordtype">int</span> rang);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#a7a70a4bb648f3b4d78b43342effda711">simulateur</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="ttc" id="a_exercice1_8c_html_a0cf0fd0ef9562c2ef1aef4dd9522b35f"><div class="ttname"><a href="_exercice1_8c.html#a0cf0fd0ef9562c2ef1aef4dd9522b35f">random_hach</a></div><div class="ttdeci">void random_hach(int n, int min, int max, struct pair *pairs)</div><div class="ttdoc">Fonction de hachage random des id Les id_mpi seront liés à la case du tableau renvoyé</div><div class="ttdef"><b>Definition:</b> Exercice1.c:21</div></div>
+<div class="ttc" id="a_exercice1_8c_html_a3743b936b4d80bb194f8bcd3290e9ddb"><div class="ttname"><a href="_exercice1_8c.html#a3743b936b4d80bb194f8bcd3290e9ddb">swap</a></div><div class="ttdeci">void swap(struct pair *pa, struct pair *pb)</div><div class="ttdoc">Fonction d'echange de deux valeurs pour le tri a bulle.</div><div class="ttdef"><b>Definition:</b> Exercice1.c:47</div></div>
+<div class="ttc" id="a_exercice1_8c_html_a446ae2a779c161a59924314872c2d996"><div class="ttname"><a href="_exercice1_8c.html#a446ae2a779c161a59924314872c2d996">find_next</a></div><div class="ttdeci">int find_next(int key, struct pair *pair)</div><div class="ttdoc">Fonction parcourant la table des fingers du pair executant lookup a la recherche du plus grand predec...</div><div class="ttdef"><b>Definition:</b> Exercice1.c:139</div></div>
+<div class="ttc" id="a_exercice1_8c_html_a4e110b3653e74210e55d306870dd8a40"><div class="ttname"><a href="_exercice1_8c.html#a4e110b3653e74210e55d306870dd8a40">lookup</a></div><div class="ttdeci">void lookup(int key, int source, struct pair *me)</div><div class="ttdoc">Fonction gérant le retour de la fonction find_next:</div><div class="ttdef"><b>Definition:</b> Exercice1.c:159</div></div>
+<div class="ttc" id="a_exercice1_8c_html_a66b01f5833de13bafd945b22d1151234"><div class="ttname"><a href="_exercice1_8c.html#a66b01f5833de13bafd945b22d1151234">receive</a></div><div class="ttdeci">int receive(struct pair *me)</div><div class="ttdoc">Fonction gerant les receive pour les pairs, on se bloque en MPI_Recv et apres on agit en fonction du ...</div><div class="ttdef"><b>Definition:</b> Exercice1.c:182</div></div>
+<div class="ttc" id="a_exercice1_8c_html_a6b2fbb9e3eb1768c8c7c12141d70c23d"><div class="ttname"><a href="_exercice1_8c.html#a6b2fbb9e3eb1768c8c7c12141d70c23d">bool_contains</a></div><div class="ttdeci">int bool_contains(int a, int b, int key)</div><div class="ttdoc">Fonction permettant de savoir si b &lt; key &lt; a On augmente de 2^M-1 a si a &lt; b On augmente de 2^M-1 key...</div><div class="ttdef"><b>Definition:</b> Exercice1.c:120</div></div>
+<div class="ttc" id="a_exercice1_8c_html_a7a70a4bb648f3b4d78b43342effda711"><div class="ttname"><a href="_exercice1_8c.html#a7a70a4bb648f3b4d78b43342effda711">simulateur</a></div><div class="ttdeci">void simulateur(void)</div><div class="ttdoc">Fonction initiant les id chord et calculant les finger tables.</div><div class="ttdef"><b>Definition:</b> Exercice1.c:244</div></div>
+<div class="ttc" id="a_exercice1_8c_html_aa275ac8e5253bfc3150613b1d5483baa"><div class="ttname"><a href="_exercice1_8c.html#aa275ac8e5253bfc3150613b1d5483baa">pair_init</a></div><div class="ttdeci">void pair_init(int rang)</div><div class="ttdoc">Fonction commune executée par chaque pair, on initialise la struct pair en recevant les données du si...</div><div class="ttdef"><b>Definition:</b> Exercice1.c:219</div></div>
+<div class="ttc" id="a_exercice1_8c_html_aa4ffd801262b2cddeeeec11afb5c8923"><div class="ttname"><a href="_exercice1_8c.html#aa4ffd801262b2cddeeeec11afb5c8923">trie_pairs</a></div><div class="ttdeci">void trie_pairs(struct pair *pairs)</div><div class="ttdoc">: Fonction triant un array de pairs en fonction de leur chord id</div><div class="ttdef"><b>Definition:</b> Exercice1.c:59</div></div>
+<div class="ttc" id="a_exercice1_8c_html_ae63971d7267352204193312eacd9de1f"><div class="ttname"><a href="_exercice1_8c.html#ae63971d7267352204193312eacd9de1f">calcul_finger</a></div><div class="ttdeci">void calcul_finger(struct pair *pairs)</div><div class="ttdoc">Fonction de calcul des fingers tables pour chaque pair.</div><div class="ttdef"><b>Definition:</b> Exercice1.c:77</div></div>
+<div class="ttc" id="astructfinger_html"><div class="ttname"><a href="structfinger.html">finger</a></div><div class="ttdoc">Structure représentant un finger.</div><div class="ttdef"><b>Definition:</b> dht.h:27</div></div>
+<div class="ttc" id="astructpair_html"><div class="ttname"><a href="structpair.html">pair</a></div><div class="ttdoc">Structure représentant un pair.</div><div class="ttdef"><b>Definition:</b> dht.h:40</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+</small></address>
+</body>
+</html>

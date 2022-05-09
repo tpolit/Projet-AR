@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet AR DHT Chord: Distributed Algorithmic Project</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Projet AR DHT Chord
+   </div>
+   <div id="projectbrief">Projet de fin de semestre de l&#39;UE d&#39;algorithmique répartie.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div><div class="header">
+  <div class="headertitle"><div class="title">Distributed Algorithmic Project </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h1><a class="anchor" id="autotoc_md1"></a>
+Exercice 1</h1>
+<p >Mise en place d'une table de hachage distribué construite par un simulateur qui envoie aux pairs leur finger table et leur id. Implementation de l'algorithme de recherche d'une clé dans l'anneau.</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Exercice 2</h1>
+<p >Calcul des finger table par les pairs. Utilisation de l'algorithme de Hirschberg &amp; Sinclair pour élire un leader qui calculera les finger table de tous les pairs.</p>
+<h2><a class="anchor" id="autotoc_md3"></a>
+Description de l'algorithme</h2>
+<p >Dans un premier temps les pairs sont organisés en anneau bi-directionnel. Ils sont rangés dans l'ordre de leur rang mpi et possèdent dès l'initialisation un identifiant chord qui servira a calculer les finger table. Le calcul des finger table se fera par un processus élu. Pour élire ce processus nous utilisons l'algorithme de Hirschberg &amp; Sinclair qui a une complexité en nombre de messages de N*log(N) oû N est le nombre de pairs dans le système. <br  />
+ A l'initialisation, le simulateur fournit donc a chaque pair:</p><ul>
+<li>un booleen initiateur qui est vrai si le pair est candidat</li>
+<li>son identifiant chord</li>
+</ul>
+<p >Le pair initialise par lui-même :</p><ul>
+<li>son rang MPI</li>
+<li>son etat a NSP</li>
+<li>son voisin droit et son voisin gauche qu'il obtient grâce à son rang MPI</li>
+</ul>
+<p >On utilise 4 types de message pour l'election :</p><ul>
+<li>INIT : message envoyé par le simulateur aux pairs pour leur indiquer si ils sont candidats et pour leur faire passer leur identifiant chord</li>
+<li>OUT : jeton envoyé par un processus candidat a l'election, il est accompagné de l'identifiant du candidat ainsi que de la distance à laquelle il doit se propager avant de revenir</li>
+<li>IN : jeton de retour, lorsqu'un jeton OUT a parcouru la distance à laquelle il devait se propager, les pairs le font revenir</li>
+<li>LEADER : message d'annonce du leader, il y attache son id et le fait passer par les voisins droits des pairs, ce message fait le tour de l'anneau</li>
+</ul>
+<p >Durant l'election le pair peut être dans 4 états.</p><ul>
+<li>NSP : au depart pour tous les pairs</li>
+<li>BATTU : le pair a reçu un message OUT avec un ID superieur au sien ou n'etait pas candidat et a reçu un message OUT</li>
+<li>ELU : le pair a envoyé un message OUT qui a fait le tour de l'anneau et lui est revenu</li>
+<li>ENDELEC : tous les pairs qui ont reçu le message d'annonce du pair elu passent dans cet état</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Exercice 3</h1>
+<ul>
+<li>Comme exercice 1 : calcul des finger table par le simulateur + calcul des inverses</li>
+<li>Tirage aleatoire d'un nouveau pair unique, et on lui donne un contact dans l'anneau</li>
+<li>Le nouveau pair envoie son id chord au contact en lui demandant de faire un lookup pour trouver son responsable -&gt; 1 msg + Lookup</li>
+<li>Le contact lance le lookup et le responsable est renvoyé au nouveau pair</li>
+<li>Le nouveau pair demande au responsable de dire aux pairs de sa table inverse de recalculer leur finger table avec l'id du nouveau pair -&gt; N msg dans le pire des cas</li>
+<li>Le nouveau pair lance un message qui fait le tour de l'anneau pour connaitre tous les id chord de l'anneau pour pouvoir calculer sa finger table -&gt; N msg</li>
+<li>Le nouveau pair envoie au simulateur qu'il s'est bien inséré </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+</small></address>
+</body>
+</html>

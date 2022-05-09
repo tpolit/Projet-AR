@@ -31,7 +31,10 @@
 #define     ENDELEC 2
 
 /**
- * Structure représentant un finger
+ * @brief   Structure représentant un finger 
+ * 
+ * @param   chord_id : id obtenu avec la fonction de hachage
+ * @param   mpi_rank : rank mpi
  */
 struct finger {
     int chord_id;
@@ -39,7 +42,12 @@ struct finger {
 };
 
 /**
- * Structure représentant un pair
+ * @brief Structure représentant un pair
+ * 
+ * @param   chord_id : id obtenu avec la fonction de hachage
+ * @param   mpi_rank : rank mpi
+ * @param   succ     : successeur
+ * @param   fingers  : finger table
  */
 struct pair {
     int chord_id; // id obtenu avec la fonction de hachage
@@ -48,7 +56,18 @@ struct pair {
     struct finger fingers[M]; // table des fingers
 };
 
-/* Structure pour l'election du leader */
+/**
+ * @brief Structure représentant un processus participant à l'élection du leader
+ * 
+ * @param   mpi_rank : rank mpi
+ * @param   state    : etat du processus
+ * @param   initiateur  : true = candidat, false sinon
+ * @param   vg : voisin de gauche
+ * @param   vd : voisin de droite
+ * @param   nb_in : nombre de tokens qui sont revenus
+ * @param   etape : numero de l'etape, utilisé pour calculer distance = 2^etape
+ * @param   chord_id : id chord du processus
+ */
 struct process {
     int mpi_rank; // rank mpi du processus
     int state; // etat du processus

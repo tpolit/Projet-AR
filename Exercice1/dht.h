@@ -19,26 +19,34 @@
 
 
 /**
- * Structure représentant un finger
+ * @brief   Structure représentant un finger 
+ * 
+ * @param   chord_id : id obtenu avec la fonction de hachage
+ * @param   mpi_rank : rank mpi
  */
-struct finger{
+struct finger {
     int chord_id;
     int mpi_rank;
 };
 
 /**
- * Structure représentant un pair
+ * @brief Structure représentant un pair
+ * 
+ * @param   chord_id : id obtenu avec la fonction de hachage
+ * @param   mpi_rank : rank mpi
+ * @param   succ     : successeur
+ * @param   fingers  : finger table
  */
 struct pair {
-    int chord_id; // id obtenu avec la fonction de hachage
-    int mpi_rank; // rank mpi
-    int succ; // successeur
-    struct finger fingers[M]; // table des fingers
+    int chord_id;
+    int mpi_rank;
+    int succ;
+    struct finger fingers[M];
 };
 
 
 void random_hach(int n, int min, int max,struct pair *pairs);
-void swap(struct pair *pa,struct pair * pb);
+void swap(struct pair *pa,struct pair *pb);
 void trie_pairs(struct pair *pairs);
 void calcul_finger(struct pair *pairs);
 int bool_contains(int a, int b, int key);

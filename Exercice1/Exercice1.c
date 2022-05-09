@@ -18,7 +18,7 @@
  * @param max borne sup des id
  * @param pairs tableau de structure pair que l'on va remplir avec les id_chord générés
  */
-void random_hach(int n, int min, int max,struct pair *pairs) 
+void random_hach(int n, int min, int max, struct pair *pairs) 
 {
     int value;
     int i;
@@ -47,8 +47,8 @@ void random_hach(int n, int min, int max,struct pair *pairs)
 void swap(struct pair *pa,struct pair * pb)
 {
     struct pair ptmp = *pa;
-    *pa=*pb;
-    *pb=ptmp;
+    *pa = *pb;
+    *pb = ptmp;
 }
 
 /**
@@ -59,9 +59,9 @@ void swap(struct pair *pa,struct pair * pb)
 void trie_pairs(struct pair *pairs)
 {
     int i,j;
-    for (i = 0; i < NB_SITE; i++){
-        for (j = 0; j < NB_SITE-i-1; j++){
-            if (pairs[j].chord_id > pairs[j+1].chord_id){
+    for (i = 0; i < NB_SITE; i++) {
+        for (j = 0; j < NB_SITE-i-1; j++) {
+            if (pairs[j].chord_id > pairs[j+1].chord_id) {
                 swap(&pairs[j],&pairs[j+1]);
             }
         }
@@ -71,7 +71,7 @@ void trie_pairs(struct pair *pairs)
 /**
  * @brief Fonction de calcul des fingers tables pour chaque pair
  * 
- * @param pairs On calcul la table des fingers et on l'assigne a pair->finger
+ * @param pairs On calcule la table des fingers et on l'assigne a pair->finger
  *                pour chaque pair
  */
 void calcul_finger(struct pair *pairs)
@@ -89,13 +89,13 @@ void calcul_finger(struct pair *pairs)
             value = (int) (pow(2,i)+pairs[k].chord_id) % (int) pow(2,M);
             //j : indice de l'entrée dans la table des fingers de k
             for (j = NB_SITE-1; j >= 0; j--) {
-                if (j == NB_SITE-1 && pairs[j].chord_id < value){
+                if (j == NB_SITE-1 && pairs[j].chord_id < value) {
                     tmp_finger.chord_id=pairs[0].chord_id;
                     tmp_finger.mpi_rank=pairs[0].mpi_rank;
                     pairs[k].fingers[i]=(tmp_finger);
                     break;
                 }
-                if (pairs[j].chord_id>=value){
+                if (pairs[j].chord_id>=value) {
                     tmp_finger.chord_id=pairs[j].chord_id;
                     tmp_finger.mpi_rank=pairs[j].mpi_rank;
                     pairs[k].fingers[i]=tmp_finger;
@@ -234,7 +234,7 @@ void pair_init(int rang)
     }
     printf("]\n");
 
-    while(receive(pair)!=-1){}
+    while(receive(pair)!=-1) { }
 }
 
 /**
@@ -267,6 +267,8 @@ void simulateur(void)
         MPI_Send(pairs[i].fingers,M*sizeof(struct finger),MPI_CHAR,pairs[i].mpi_rank,TAGINIT,MPI_COMM_WORLD);
     }
 
+    sleep(1);
+    printf("\n");
     srand(time(NULL));
     /* Selection d'une clé aléatoire */
     mess[0] = rand() % (int) pow(2, M);
@@ -282,7 +284,15 @@ void simulateur(void)
     }
 }
 
-int main(int argc, char* argv[]){
+/**
+ * @brief Fonction de lancement de la simulation
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
+int main(int argc, char* argv[])
+{
     int nb_proc, rang;
     MPI_Init(&argc, &argv);
     MPI_Comm_size(MPI_COMM_WORLD, &nb_proc);

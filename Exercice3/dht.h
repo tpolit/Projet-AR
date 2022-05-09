@@ -7,7 +7,7 @@
 
 /* Entiers du système */
 #define     NB_SITE     5
-#define     M           4
+#define     M           6
 
 /* Definition des tags d'envoi */
 #define     TAGINIT     0
@@ -43,16 +43,21 @@ struct pair {
     struct finger reverse[NB_SITE-1];// table des inverses
 };
 
-
-
-
-void swap(void * a, void * b, size_t len);
-void calcul_finger(struct pair *pairs,int size);
-void calcul_reverse(struct pair *pairs,int size);
-
+void random_hach(int n, int min, int max,struct pair *pairs);
+void swap(void *a, void *b, size_t len);
+void trie_fingers(struct finger *fingers, int size);
+void afficher_fingers(struct pair *pair);
+void afficher_reverse(struct pair * pair);
+void trie_tab(int *tab, int size);
+void trie_pairs(struct pair *pairs,int size);
+int remove_duplicates(struct finger *finger, int size);
+void recalcul_finger(struct pair *me, int *new_pair);
+void calcul_finger(struct pair *pairs, int size);
+void calcul_reverse(struct pair *pairs, int size);
 int bool_contains(int a, int b, int key);
 int find_next(int key, struct pair *pair);
 void lookup(int key, int source, struct pair *me);
+void wait_insertion();
 int receive(struct pair *me);
 void pair_init(int rang);
 void simulateur(void);

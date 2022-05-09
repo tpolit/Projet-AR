@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet AR DHT Chord:  Fichier source de Exercice2/dht.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Projet AR DHT Chord
+   </div>
+   <div id="projectbrief">Projet de fin de semestre de l&#39;UE d&#39;algorithmique répartie.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_5dcd60aa58d2621a425c804c6d85cb87.html">Exercice2</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">dht.h</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;mpi.h&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;time.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;math.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">/* Entiers du système */</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#define     NB_SITE 5</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#define     M       6</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">/* Definition des tags d&#39;envoi pour chord */</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#define     TAGINIT     0</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#define     LOOKUP      1</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#define     RESPONSABLE 2</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#define     RESPONSE    3</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#define     INIT_LOOKUP 4</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#define     TERMINAISON 5</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#define     CHORDID     6</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">/* Tag des messages pour l&#39;election */</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#define     OUT     1</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#define     IN      2</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#define     INIT    3</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#define     LEADER  4</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="comment">/* Etats des processus pour l&#39;election */</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#define     NSP     -1</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#define     BATTU   0</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#define     ELU     1</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#define     ENDELEC 2</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">struct </span><a class="code hl_struct" href="structfinger.html">finger</a> {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">int</span> chord_id;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">int</span> mpi_rank;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>};</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">struct </span><a class="code hl_struct" href="structpair.html">pair</a> {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">int</span> chord_id; <span class="comment">// id obtenu avec la fonction de hachage</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">int</span> mpi_rank; <span class="comment">// rank mpi</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">int</span> succ; <span class="comment">// successeur</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">struct </span><a class="code hl_struct" href="structfinger.html">finger</a> fingers[M]; <span class="comment">// table des fingers</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="structprocess.html">   71</a></span><span class="keyword">struct </span><a class="code hl_struct" href="structprocess.html">process</a> {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">int</span> mpi_rank; <span class="comment">// rank mpi du processus</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">int</span> state; <span class="comment">// etat du processus</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">int</span> initiateur; <span class="comment">// true = candidat, false sinon</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">int</span> vg; <span class="comment">// voisin de gauche</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">int</span> vd; <span class="comment">// voisin de droite</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">int</span> nb_in; <span class="comment">// nombre de tokens qui sont revenus</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">int</span> etape; <span class="comment">// numero de l&#39;etape, utilisé pour calculer distance = 2^etape</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordtype">int</span> chord_id; <span class="comment">// id chord du processus</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment"> * ============================================================================</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment"> *                           FONCTIONS POUR CHORD</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment"> * ============================================================================</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#a0cf0fd0ef9562c2ef1aef4dd9522b35f">random_hach</a>(<span class="keywordtype">int</span> n, <span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max, <span class="keywordtype">int</span> *pairs);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#a3743b936b4d80bb194f8bcd3290e9ddb">swap</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *pa,<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *pb);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#aa4ffd801262b2cddeeeec11afb5c8923">trie_pairs</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *pairs);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#ae63971d7267352204193312eacd9de1f">calcul_finger</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structpair.html">pair</a> *pairs);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice1_8c.html#aa275ac8e5253bfc3150613b1d5483baa">pair_init</a>(<span class="keywordtype">int</span> rang, <span class="keywordtype">int</span> chord_id);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keywordtype">void</span> leader_word(<span class="keywordtype">void</span>);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="comment">/*</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="comment"> * ============================================================================</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="comment"> *                    FONCTIONS POUR ELECTION DU LEADER</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="comment"> * ============================================================================</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice2_8c.html#a7bb939df24fc3c35a44f4be537de62da">recevoir_out</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structprocess.html">process</a> *me, <span class="keywordtype">int</span> recv[2], MPI_Status status);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice2_8c.html#a9dd2ded4bcd22b9d59e6694d21436ac2">recevoir_in</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structprocess.html">process</a> *me, <span class="keywordtype">int</span> recv[2], MPI_Status status);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice2_8c.html#a4548d705b5aa935a7fe1d7cb2f451815">recevoir_election</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structprocess.html">process</a> *me);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice2_8c.html#a3dfbd0ef1f4005bc3de2cda57f31aee6">annonce_election</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structprocess.html">process</a> *me);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice2_8c.html#a9b1025333ca86094ee0e3f6058dd9988">initier_etape</a>(<span class="keyword">struct</span> <a class="code hl_struct" href="structprocess.html">process</a> *me);</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">struct </span><a class="code hl_struct" href="structprocess.html">process</a>* <a class="code hl_function" href="_exercice2_8c.html#a8abaf37b0ddb2f90da614156095a8e2d">election</a>(<span class="keywordtype">int</span> rang);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keywordtype">void</span> <a class="code hl_function" href="_exercice2_8c.html#ae8df094444b21b8b2ad7f8315da90e5a">simulateur_election</a>();</div>
+<div class="ttc" id="a_exercice1_8c_html_a0cf0fd0ef9562c2ef1aef4dd9522b35f"><div class="ttname"><a href="_exercice1_8c.html#a0cf0fd0ef9562c2ef1aef4dd9522b35f">random_hach</a></div><div class="ttdeci">void random_hach(int n, int min, int max, struct pair *pairs)</div><div class="ttdoc">Fonction de hachage random des id Les id_mpi seront liés à la case du tableau renvoyé</div><div class="ttdef"><b>Definition:</b> Exercice1.c:21</div></div>
+<div class="ttc" id="a_exercice1_8c_html_a3743b936b4d80bb194f8bcd3290e9ddb"><div class="ttname"><a href="_exercice1_8c.html#a3743b936b4d80bb194f8bcd3290e9ddb">swap</a></div><div class="ttdeci">void swap(struct pair *pa, struct pair *pb)</div><div class="ttdoc">Fonction d'echange de deux valeurs pour le tri a bulle.</div><div class="ttdef"><b>Definition:</b> Exercice1.c:47</div></div>
+<div class="ttc" id="a_exercice1_8c_html_aa275ac8e5253bfc3150613b1d5483baa"><div class="ttname"><a href="_exercice1_8c.html#aa275ac8e5253bfc3150613b1d5483baa">pair_init</a></div><div class="ttdeci">void pair_init(int rang)</div><div class="ttdoc">Fonction commune executée par chaque pair, on initialise la struct pair en recevant les données du si...</div><div class="ttdef"><b>Definition:</b> Exercice1.c:219</div></div>
+<div class="ttc" id="a_exercice1_8c_html_aa4ffd801262b2cddeeeec11afb5c8923"><div class="ttname"><a href="_exercice1_8c.html#aa4ffd801262b2cddeeeec11afb5c8923">trie_pairs</a></div><div class="ttdeci">void trie_pairs(struct pair *pairs)</div><div class="ttdoc">: Fonction triant un array de pairs en fonction de leur chord id</div><div class="ttdef"><b>Definition:</b> Exercice1.c:59</div></div>
+<div class="ttc" id="a_exercice1_8c_html_ae63971d7267352204193312eacd9de1f"><div class="ttname"><a href="_exercice1_8c.html#ae63971d7267352204193312eacd9de1f">calcul_finger</a></div><div class="ttdeci">void calcul_finger(struct pair *pairs)</div><div class="ttdoc">Fonction de calcul des fingers tables pour chaque pair.</div><div class="ttdef"><b>Definition:</b> Exercice1.c:77</div></div>
+<div class="ttc" id="a_exercice2_8c_html_a3dfbd0ef1f4005bc3de2cda57f31aee6"><div class="ttname"><a href="_exercice2_8c.html#a3dfbd0ef1f4005bc3de2cda57f31aee6">annonce_election</a></div><div class="ttdeci">void annonce_election(struct process *me)</div><div class="ttdoc">Fonction permettant au pair elu d'annoncer son election aux autres pairs en faisant circuler un messa...</div><div class="ttdef"><b>Definition:</b> Exercice2.c:293</div></div>
+<div class="ttc" id="a_exercice2_8c_html_a4548d705b5aa935a7fe1d7cb2f451815"><div class="ttname"><a href="_exercice2_8c.html#a4548d705b5aa935a7fe1d7cb2f451815">recevoir_election</a></div><div class="ttdeci">void recevoir_election(struct process *me)</div><div class="ttdoc">Fonction bloquant sur un Recv puis executant un code spécifique en fonction du TAG du message reçu.</div><div class="ttdef"><b>Definition:</b> Exercice2.c:261</div></div>
+<div class="ttc" id="a_exercice2_8c_html_a7bb939df24fc3c35a44f4be537de62da"><div class="ttname"><a href="_exercice2_8c.html#a7bb939df24fc3c35a44f4be537de62da">recevoir_out</a></div><div class="ttdeci">void recevoir_out(struct process *me, int recv[2], MPI_Status status)</div><div class="ttdoc">Reception d'un message OUT, si la distance est a 0 alors on renvoie un message IN a l'emetteur,...</div><div class="ttdef"><b>Definition:</b> Exercice2.c:192</div></div>
+<div class="ttc" id="a_exercice2_8c_html_a8abaf37b0ddb2f90da614156095a8e2d"><div class="ttname"><a href="_exercice2_8c.html#a8abaf37b0ddb2f90da614156095a8e2d">election</a></div><div class="ttdeci">struct process * election(int rang)</div><div class="ttdoc">Fonction executée par les pairs pour l'election du leader.</div><div class="ttdef"><b>Definition:</b> Exercice2.c:322</div></div>
+<div class="ttc" id="a_exercice2_8c_html_a9b1025333ca86094ee0e3f6058dd9988"><div class="ttname"><a href="_exercice2_8c.html#a9b1025333ca86094ee0e3f6058dd9988">initier_etape</a></div><div class="ttdeci">void initier_etape(struct process *me)</div><div class="ttdoc">Fonction permettant d'initier une etape de l'election en envoyant deux tokens a une distance 2^me-&gt;et...</div><div class="ttdef"><b>Definition:</b> Exercice2.c:308</div></div>
+<div class="ttc" id="a_exercice2_8c_html_a9dd2ded4bcd22b9d59e6694d21436ac2"><div class="ttname"><a href="_exercice2_8c.html#a9dd2ded4bcd22b9d59e6694d21436ac2">recevoir_in</a></div><div class="ttdeci">void recevoir_in(struct process *me, int recv[2], MPI_Status status)</div><div class="ttdoc">Reception d'un message IN, si l'initiateur du token est nous-meme alors on augmente le nombre de toke...</div><div class="ttdef"><b>Definition:</b> Exercice2.c:236</div></div>
+<div class="ttc" id="a_exercice2_8c_html_ae8df094444b21b8b2ad7f8315da90e5a"><div class="ttname"><a href="_exercice2_8c.html#ae8df094444b21b8b2ad7f8315da90e5a">simulateur_election</a></div><div class="ttdeci">void simulateur_election()</div><div class="ttdoc">Fonction choississant aléatoirement au moins 1 initiateur dans les pairs qui sera candidat à l'electi...</div><div class="ttdef"><b>Definition:</b> Exercice2.c:352</div></div>
+<div class="ttc" id="astructfinger_html"><div class="ttname"><a href="structfinger.html">finger</a></div><div class="ttdoc">Structure représentant un finger.</div><div class="ttdef"><b>Definition:</b> dht.h:27</div></div>
+<div class="ttc" id="astructpair_html"><div class="ttname"><a href="structpair.html">pair</a></div><div class="ttdoc">Structure représentant un pair.</div><div class="ttdef"><b>Definition:</b> dht.h:40</div></div>
+<div class="ttc" id="astructprocess_html"><div class="ttname"><a href="structprocess.html">process</a></div><div class="ttdoc">Structure représentant un processus participant à l'élection du leader.</div><div class="ttdef"><b>Definition:</b> dht.h:71</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+</small></address>
+</body>
+</html>

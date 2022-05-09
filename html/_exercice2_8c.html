@@ -1,0 +1,584 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet AR DHT Chord: Référence du fichier Exercice2/Exercice2.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Projet AR DHT Chord
+   </div>
+   <div id="projectbrief">Projet de fin de semestre de l&#39;UE d&#39;algorithmique répartie.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_5dcd60aa58d2621a425c804c6d85cb87.html">Exercice2</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier Exercice2.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Calcul des finger tables en distribué  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;dht.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a38c49722493af7ac28b010b78dac2300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a38c49722493af7ac28b010b78dac2300">random_hach</a> (int n, int min, int max, int *pairs)</td></tr>
+<tr class="memdesc:a38c49722493af7ac28b010b78dac2300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de hachage random des id Les id_mpi seront liés à la case du tableau renvoyé  <a href="_exercice2_8c.html#a38c49722493af7ac28b010b78dac2300">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a38c49722493af7ac28b010b78dac2300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3743b936b4d80bb194f8bcd3290e9ddb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a3743b936b4d80bb194f8bcd3290e9ddb">swap</a> (struct <a class="el" href="structpair.html">pair</a> *pa, struct <a class="el" href="structpair.html">pair</a> *pb)</td></tr>
+<tr class="memdesc:a3743b936b4d80bb194f8bcd3290e9ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction d'echange de deux valeurs pour le tri a bulle.  <a href="_exercice2_8c.html#a3743b936b4d80bb194f8bcd3290e9ddb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3743b936b4d80bb194f8bcd3290e9ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4ffd801262b2cddeeeec11afb5c8923"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#aa4ffd801262b2cddeeeec11afb5c8923">trie_pairs</a> (struct <a class="el" href="structpair.html">pair</a> *pairs)</td></tr>
+<tr class="memdesc:aa4ffd801262b2cddeeeec11afb5c8923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction triant un array de pairs en fonction de leur chord id.  <a href="_exercice2_8c.html#aa4ffd801262b2cddeeeec11afb5c8923">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa4ffd801262b2cddeeeec11afb5c8923"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae63971d7267352204193312eacd9de1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#ae63971d7267352204193312eacd9de1f">calcul_finger</a> (struct <a class="el" href="structpair.html">pair</a> *pairs)</td></tr>
+<tr class="memdesc:ae63971d7267352204193312eacd9de1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de calcul des fingers tables pour chaque pair.  <a href="_exercice2_8c.html#ae63971d7267352204193312eacd9de1f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae63971d7267352204193312eacd9de1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f1cd2ed98bef5e45d838d0913ee4fa4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a0f1cd2ed98bef5e45d838d0913ee4fa4">leader_work</a> (int rang, int chord_id)</td></tr>
+<tr class="memdesc:a0f1cd2ed98bef5e45d838d0913ee4fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction executee par le leader pour calculer les finger table de tous les pairs. Il commence par recevoir tous les couple {mpi_rank, id_chord} de tous les pairs. Une fois reçus il calcule la table de fingers de chacun des pairs puis leur envoie.  <a href="_exercice2_8c.html#a0f1cd2ed98bef5e45d838d0913ee4fa4">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0f1cd2ed98bef5e45d838d0913ee4fa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ce297fa221f090dad07c5fe611e9659"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a0ce297fa221f090dad07c5fe611e9659">pair_init</a> (int rang, int chord_id)</td></tr>
+<tr class="memdesc:a0ce297fa221f090dad07c5fe611e9659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction commune executée par chaque pair, on initialise la struct pair en recevant les données du leader puis on affiche notre finger table.  <a href="_exercice2_8c.html#a0ce297fa221f090dad07c5fe611e9659">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0ce297fa221f090dad07c5fe611e9659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb939df24fc3c35a44f4be537de62da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a7bb939df24fc3c35a44f4be537de62da">recevoir_out</a> (struct <a class="el" href="structprocess.html">process</a> *me, int recv[2], MPI_Status status)</td></tr>
+<tr class="memdesc:a7bb939df24fc3c35a44f4be537de62da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reception d'un message OUT, si la distance est a 0 alors on renvoie un message IN a l'emetteur, sinon on envoie a l'autre voisin un message OUT avec distance - 1.  <a href="_exercice2_8c.html#a7bb939df24fc3c35a44f4be537de62da">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a7bb939df24fc3c35a44f4be537de62da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dd2ded4bcd22b9d59e6694d21436ac2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a9dd2ded4bcd22b9d59e6694d21436ac2">recevoir_in</a> (struct <a class="el" href="structprocess.html">process</a> *me, int recv[2], MPI_Status status)</td></tr>
+<tr class="memdesc:a9dd2ded4bcd22b9d59e6694d21436ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reception d'un message IN, si l'initiateur du token est nous-meme alors on augmente le nombre de token qui sont revenus. Si on a reçu nos deux token alors on passe a l'etape suivante. Si nous ne sommes pas l'initiateur du token, on fait suivre le token a notre autre voisin.  <a href="_exercice2_8c.html#a9dd2ded4bcd22b9d59e6694d21436ac2">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9dd2ded4bcd22b9d59e6694d21436ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4548d705b5aa935a7fe1d7cb2f451815"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a4548d705b5aa935a7fe1d7cb2f451815">recevoir_election</a> (struct <a class="el" href="structprocess.html">process</a> *me)</td></tr>
+<tr class="memdesc:a4548d705b5aa935a7fe1d7cb2f451815"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction bloquant sur un Recv puis executant un code spécifique en fonction du TAG du message reçu.  <a href="_exercice2_8c.html#a4548d705b5aa935a7fe1d7cb2f451815">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4548d705b5aa935a7fe1d7cb2f451815"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dfbd0ef1f4005bc3de2cda57f31aee6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a3dfbd0ef1f4005bc3de2cda57f31aee6">annonce_election</a> (struct <a class="el" href="structprocess.html">process</a> *me)</td></tr>
+<tr class="memdesc:a3dfbd0ef1f4005bc3de2cda57f31aee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction permettant au pair elu d'annoncer son election aux autres pairs en faisant circuler un message LEADER dans l'anneau.  <a href="_exercice2_8c.html#a3dfbd0ef1f4005bc3de2cda57f31aee6">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3dfbd0ef1f4005bc3de2cda57f31aee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b1025333ca86094ee0e3f6058dd9988"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a9b1025333ca86094ee0e3f6058dd9988">initier_etape</a> (struct <a class="el" href="structprocess.html">process</a> *me)</td></tr>
+<tr class="memdesc:a9b1025333ca86094ee0e3f6058dd9988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction permettant d'initier une etape de l'election en envoyant deux tokens a une distance 2^me-&gt;etape.  <a href="_exercice2_8c.html#a9b1025333ca86094ee0e3f6058dd9988">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a9b1025333ca86094ee0e3f6058dd9988"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8abaf37b0ddb2f90da614156095a8e2d"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structprocess.html">process</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a8abaf37b0ddb2f90da614156095a8e2d">election</a> (int rang)</td></tr>
+<tr class="memdesc:a8abaf37b0ddb2f90da614156095a8e2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction executée par les pairs pour l'election du leader.  <a href="_exercice2_8c.html#a8abaf37b0ddb2f90da614156095a8e2d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a8abaf37b0ddb2f90da614156095a8e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8df094444b21b8b2ad7f8315da90e5a"><td class="memItemLeft" align="right" valign="top"><a id="ae8df094444b21b8b2ad7f8315da90e5a" name="ae8df094444b21b8b2ad7f8315da90e5a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>simulateur_election</b> ()</td></tr>
+<tr class="memdesc:ae8df094444b21b8b2ad7f8315da90e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction choississant aléatoirement au moins 1 initiateur dans les pairs qui sera candidat à l'election. <br /></td></tr>
+<tr class="separator:ae8df094444b21b8b2ad7f8315da90e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice2_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
+<tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de lancement de la simulation.  <a href="_exercice2_8c.html#a0ddf1224851353fc92bfbff6f499fa97">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >Calcul des finger tables en distribué </p>
+<dl class="section author"><dt>Auteur</dt><dd>Firas Jebari &amp; Titouan Polit </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-04-28</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a3dfbd0ef1f4005bc3de2cda57f31aee6" name="a3dfbd0ef1f4005bc3de2cda57f31aee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dfbd0ef1f4005bc3de2cda57f31aee6">&#9670;&nbsp;</a></span>annonce_election()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void annonce_election </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structprocess.html">process</a> *&#160;</td>
+          <td class="paramname"><em>me</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction permettant au pair elu d'annoncer son election aux autres pairs en faisant circuler un message LEADER dans l'anneau. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">me</td><td>pair annoncant son election </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae63971d7267352204193312eacd9de1f" name="ae63971d7267352204193312eacd9de1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae63971d7267352204193312eacd9de1f">&#9670;&nbsp;</a></span>calcul_finger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void calcul_finger </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pairs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction de calcul des fingers tables pour chaque pair. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pairs</td><td>On calcul la table des fingers et on l'assigne a pair-&gt;finger pour chaque pair </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8abaf37b0ddb2f90da614156095a8e2d" name="a8abaf37b0ddb2f90da614156095a8e2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8abaf37b0ddb2f90da614156095a8e2d">&#9670;&nbsp;</a></span>election()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structprocess.html">process</a> * election </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rang</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction executée par les pairs pour l'election du leader. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rang</td><td>rang mpi du pair executant la fonction d'election </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9b1025333ca86094ee0e3f6058dd9988" name="a9b1025333ca86094ee0e3f6058dd9988"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b1025333ca86094ee0e3f6058dd9988">&#9670;&nbsp;</a></span>initier_etape()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void initier_etape </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structprocess.html">process</a> *&#160;</td>
+          <td class="paramname"><em>me</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction permettant d'initier une etape de l'election en envoyant deux tokens a une distance 2^me-&gt;etape. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">me</td><td>pair initiant l'etape me-&gt;etape </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0f1cd2ed98bef5e45d838d0913ee4fa4" name="a0f1cd2ed98bef5e45d838d0913ee4fa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f1cd2ed98bef5e45d838d0913ee4fa4">&#9670;&nbsp;</a></span>leader_work()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void leader_work </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rang</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>chord_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction executee par le leader pour calculer les finger table de tous les pairs. Il commence par recevoir tous les couple {mpi_rank, id_chord} de tous les pairs. Une fois reçus il calcule la table de fingers de chacun des pairs puis leur envoie. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rang</td><td>mpi_rank du leader </td></tr>
+    <tr><td class="paramname">chord_id</td><td>chord_id du leader </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0ddf1224851353fc92bfbff6f499fa97" name="a0ddf1224851353fc92bfbff6f499fa97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ddf1224851353fc92bfbff6f499fa97">&#9670;&nbsp;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction de lancement de la simulation. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td></td></tr>
+    <tr><td class="paramname">argv</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int </dd></dl>
+
+</div>
+</div>
+<a id="a0ce297fa221f090dad07c5fe611e9659" name="a0ce297fa221f090dad07c5fe611e9659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ce297fa221f090dad07c5fe611e9659">&#9670;&nbsp;</a></span>pair_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pair_init </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rang</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>chord_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction commune executée par chaque pair, on initialise la struct pair en recevant les données du leader puis on affiche notre finger table. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rang</td><td>rang mpi du pair qui s'initialise </td></tr>
+    <tr><td class="paramname">chord_id</td><td>id chord du pair qui s'initialise </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a38c49722493af7ac28b010b78dac2300" name="a38c49722493af7ac28b010b78dac2300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c49722493af7ac28b010b78dac2300">&#9670;&nbsp;</a></span>random_hach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void random_hach </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>pairs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction de hachage random des id Les id_mpi seront liés à la case du tableau renvoyé </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>nombre d'id a calculer </td></tr>
+    <tr><td class="paramname">min</td><td>borne inf des id </td></tr>
+    <tr><td class="paramname">max</td><td>borne sup des id </td></tr>
+    <tr><td class="paramname">pairs</td><td>tableau d'entiers que l'on va remplir avec les chord id </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4548d705b5aa935a7fe1d7cb2f451815" name="a4548d705b5aa935a7fe1d7cb2f451815"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4548d705b5aa935a7fe1d7cb2f451815">&#9670;&nbsp;</a></span>recevoir_election()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void recevoir_election </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structprocess.html">process</a> *&#160;</td>
+          <td class="paramname"><em>me</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction bloquant sur un Recv puis executant un code spécifique en fonction du TAG du message reçu. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">me</td><td>pair executant la fonction </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9dd2ded4bcd22b9d59e6694d21436ac2" name="a9dd2ded4bcd22b9d59e6694d21436ac2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dd2ded4bcd22b9d59e6694d21436ac2">&#9670;&nbsp;</a></span>recevoir_in()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void recevoir_in </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structprocess.html">process</a> *&#160;</td>
+          <td class="paramname"><em>me</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>recv</em>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MPI_Status&#160;</td>
+          <td class="paramname"><em>status</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reception d'un message IN, si l'initiateur du token est nous-meme alors on augmente le nombre de token qui sont revenus. Si on a reçu nos deux token alors on passe a l'etape suivante. Si nous ne sommes pas l'initiateur du token, on fait suivre le token a notre autre voisin. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">me</td><td>pair executant la fonction </td></tr>
+    <tr><td class="paramname">recv</td><td>0 : initiateur, 1 : la distance, NULL ici puisque le token revient </td></tr>
+    <tr><td class="paramname">status</td><td>contenu du message </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7bb939df24fc3c35a44f4be537de62da" name="a7bb939df24fc3c35a44f4be537de62da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb939df24fc3c35a44f4be537de62da">&#9670;&nbsp;</a></span>recevoir_out()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void recevoir_out </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structprocess.html">process</a> *&#160;</td>
+          <td class="paramname"><em>me</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>recv</em>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MPI_Status&#160;</td>
+          <td class="paramname"><em>status</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reception d'un message OUT, si la distance est a 0 alors on renvoie un message IN a l'emetteur, sinon on envoie a l'autre voisin un message OUT avec distance - 1. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">me</td><td>pair executant la fonction </td></tr>
+    <tr><td class="paramname">recv</td><td>0 : id de l'initiateur, 1 : distance </td></tr>
+    <tr><td class="paramname">status</td><td>contenu du message recu </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3743b936b4d80bb194f8bcd3290e9ddb" name="a3743b936b4d80bb194f8bcd3290e9ddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3743b936b4d80bb194f8bcd3290e9ddb">&#9670;&nbsp;</a></span>swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction d'echange de deux valeurs pour le tri a bulle. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pa</td><td>a mettre a la position pb </td></tr>
+    <tr><td class="paramname">pb</td><td>a mettre a la position pa </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa4ffd801262b2cddeeeec11afb5c8923" name="aa4ffd801262b2cddeeeec11afb5c8923"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4ffd801262b2cddeeeec11afb5c8923">&#9670;&nbsp;</a></span>trie_pairs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void trie_pairs </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pairs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction triant un array de pairs en fonction de leur chord id. </p>
+<p >: Fonction triant un array de pairs en fonction de leur chord id</p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pairs</td><td>array de pairs que l'on modifie par adresse </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+</small></address>
+</body>
+</html>

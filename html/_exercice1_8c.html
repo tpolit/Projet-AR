@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.3"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Projet AR DHT Chord: Référence du fichier Exercice1/Exercice1.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Projet AR DHT Chord
+   </div>
+   <div id="projectbrief">Projet de fin de semestre de l&#39;UE d&#39;algorithmique répartie.</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.9.3 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search",'Recherche','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_a8c4f23cf9d5f3af14b7e58910ddae7a.html">Exercice1</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Fonctions</a>  </div>
+  <div class="headertitle"><div class="title">Référence du fichier Exercice1.c</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Recherche d'une clé en distribué avec calcul des finger table par un simulateur.  
+<a href="#details">Plus de détails...</a></p>
+<div class="textblock"><code>#include &quot;dht.h&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Fonctions</h2></td></tr>
+<tr class="memitem:a0cf0fd0ef9562c2ef1aef4dd9522b35f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#a0cf0fd0ef9562c2ef1aef4dd9522b35f">random_hach</a> (int n, int min, int max, struct <a class="el" href="structpair.html">pair</a> *pairs)</td></tr>
+<tr class="memdesc:a0cf0fd0ef9562c2ef1aef4dd9522b35f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de hachage random des id Les id_mpi seront liés à la case du tableau renvoyé  <a href="_exercice1_8c.html#a0cf0fd0ef9562c2ef1aef4dd9522b35f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0cf0fd0ef9562c2ef1aef4dd9522b35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3743b936b4d80bb194f8bcd3290e9ddb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#a3743b936b4d80bb194f8bcd3290e9ddb">swap</a> (struct <a class="el" href="structpair.html">pair</a> *pa, struct <a class="el" href="structpair.html">pair</a> *pb)</td></tr>
+<tr class="memdesc:a3743b936b4d80bb194f8bcd3290e9ddb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction d'echange de deux valeurs pour le tri a bulle.  <a href="_exercice1_8c.html#a3743b936b4d80bb194f8bcd3290e9ddb">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a3743b936b4d80bb194f8bcd3290e9ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4ffd801262b2cddeeeec11afb5c8923"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#aa4ffd801262b2cddeeeec11afb5c8923">trie_pairs</a> (struct <a class="el" href="structpair.html">pair</a> *pairs)</td></tr>
+<tr class="memdesc:aa4ffd801262b2cddeeeec11afb5c8923"><td class="mdescLeft">&#160;</td><td class="mdescRight">: Fonction triant un array de pairs en fonction de leur chord id  <a href="_exercice1_8c.html#aa4ffd801262b2cddeeeec11afb5c8923">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa4ffd801262b2cddeeeec11afb5c8923"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae63971d7267352204193312eacd9de1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#ae63971d7267352204193312eacd9de1f">calcul_finger</a> (struct <a class="el" href="structpair.html">pair</a> *pairs)</td></tr>
+<tr class="memdesc:ae63971d7267352204193312eacd9de1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de calcul des fingers tables pour chaque pair.  <a href="_exercice1_8c.html#ae63971d7267352204193312eacd9de1f">Plus de détails...</a><br /></td></tr>
+<tr class="separator:ae63971d7267352204193312eacd9de1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b2fbb9e3eb1768c8c7c12141d70c23d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#a6b2fbb9e3eb1768c8c7c12141d70c23d">bool_contains</a> (int a, int b, int key)</td></tr>
+<tr class="memdesc:a6b2fbb9e3eb1768c8c7c12141d70c23d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction permettant de savoir si b &lt; key &lt; a On augmente de 2^M-1 a si a &lt; b On augmente de 2^M-1 key si key &lt; a et a &lt; b Cela permet d'avoir une relation simple sur a, b et key.  <a href="_exercice1_8c.html#a6b2fbb9e3eb1768c8c7c12141d70c23d">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a6b2fbb9e3eb1768c8c7c12141d70c23d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a446ae2a779c161a59924314872c2d996"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#a446ae2a779c161a59924314872c2d996">find_next</a> (int key, struct <a class="el" href="structpair.html">pair</a> *<a class="el" href="structpair.html">pair</a>)</td></tr>
+<tr class="memdesc:a446ae2a779c161a59924314872c2d996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction parcourant la table des fingers du pair executant lookup a la recherche du plus grand predecesseur de key.  <a href="_exercice1_8c.html#a446ae2a779c161a59924314872c2d996">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a446ae2a779c161a59924314872c2d996"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e110b3653e74210e55d306870dd8a40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#a4e110b3653e74210e55d306870dd8a40">lookup</a> (int key, int source, struct <a class="el" href="structpair.html">pair</a> *me)</td></tr>
+<tr class="memdesc:a4e110b3653e74210e55d306870dd8a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction gérant le retour de la fonction find_next:  <a href="_exercice1_8c.html#a4e110b3653e74210e55d306870dd8a40">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a4e110b3653e74210e55d306870dd8a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66b01f5833de13bafd945b22d1151234"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#a66b01f5833de13bafd945b22d1151234">receive</a> (struct <a class="el" href="structpair.html">pair</a> *me)</td></tr>
+<tr class="memdesc:a66b01f5833de13bafd945b22d1151234"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction gerant les receive pour les pairs, on se bloque en MPI_Recv et apres on agit en fonction du TAG du message.  <a href="_exercice1_8c.html#a66b01f5833de13bafd945b22d1151234">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a66b01f5833de13bafd945b22d1151234"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa275ac8e5253bfc3150613b1d5483baa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#aa275ac8e5253bfc3150613b1d5483baa">pair_init</a> (int rang)</td></tr>
+<tr class="memdesc:aa275ac8e5253bfc3150613b1d5483baa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction commune executée par chaque pair, on initialise la struct pair en recevant les données du simulateur puis on boucle sur des recv tant que l'on a pas reçu de message de terminaison.  <a href="_exercice1_8c.html#aa275ac8e5253bfc3150613b1d5483baa">Plus de détails...</a><br /></td></tr>
+<tr class="separator:aa275ac8e5253bfc3150613b1d5483baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a70a4bb648f3b4d78b43342effda711"><td class="memItemLeft" align="right" valign="top"><a id="a7a70a4bb648f3b4d78b43342effda711" name="a7a70a4bb648f3b4d78b43342effda711"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>simulateur</b> (void)</td></tr>
+<tr class="memdesc:a7a70a4bb648f3b4d78b43342effda711"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction initiant les id chord et calculant les finger tables. <br /></td></tr>
+<tr class="separator:a7a70a4bb648f3b4d78b43342effda711"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_exercice1_8c.html#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
+<tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction de lancement de la simulation.  <a href="_exercice1_8c.html#a0ddf1224851353fc92bfbff6f499fa97">Plus de détails...</a><br /></td></tr>
+<tr class="separator:a0ddf1224851353fc92bfbff6f499fa97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Description détaillée</h2>
+<div class="textblock"><p >Recherche d'une clé en distribué avec calcul des finger table par un simulateur. </p>
+<dl class="section author"><dt>Auteur</dt><dd>Firas Jebari &amp; Titouan Polit </dd></dl>
+<dl class="section version"><dt>Version</dt><dd>1 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2022-04-28</dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2022 </dd></dl>
+</div><h2 class="groupheader">Documentation des fonctions</h2>
+<a id="a6b2fbb9e3eb1768c8c7c12141d70c23d" name="a6b2fbb9e3eb1768c8c7c12141d70c23d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b2fbb9e3eb1768c8c7c12141d70c23d">&#9670;&nbsp;</a></span>bool_contains()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int bool_contains </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction permettant de savoir si b &lt; key &lt; a On augmente de 2^M-1 a si a &lt; b On augmente de 2^M-1 key si key &lt; a et a &lt; b Cela permet d'avoir une relation simple sur a, b et key. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>id chord du pair executant lookup </td></tr>
+    <tr><td class="paramname">b</td><td>id chord du finger[i] </td></tr>
+    <tr><td class="paramname">key</td><td>clé recherchée </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>true si b &lt; key &lt; a false sinon </dd></dl>
+
+</div>
+</div>
+<a id="ae63971d7267352204193312eacd9de1f" name="ae63971d7267352204193312eacd9de1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae63971d7267352204193312eacd9de1f">&#9670;&nbsp;</a></span>calcul_finger()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void calcul_finger </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pairs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction de calcul des fingers tables pour chaque pair. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pairs</td><td>On calcule la table des fingers et on l'assigne a pair-&gt;finger pour chaque pair </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a446ae2a779c161a59924314872c2d996" name="a446ae2a779c161a59924314872c2d996"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a446ae2a779c161a59924314872c2d996">&#9670;&nbsp;</a></span>find_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int find_next </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pair</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction parcourant la table des fingers du pair executant lookup a la recherche du plus grand predecesseur de key. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>clé recherchée </td></tr>
+    <tr><td class="paramname">pair</td><td>pair executant lookup </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>-1 si aucun predecesseur de key n'a été trouvé, id_chord du plus grand predecesseur de key sinon </dd></dl>
+
+</div>
+</div>
+<a id="a4e110b3653e74210e55d306870dd8a40" name="a4e110b3653e74210e55d306870dd8a40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e110b3653e74210e55d306870dd8a40">&#9670;&nbsp;</a></span>lookup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lookup </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>me</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction gérant le retour de la fonction find_next: </p>
+<ul>
+<li>si aucun prédecesseur n'est trouvé, alors le responsable notre successeur.</li>
+<li>si un prédecesseur est trouvé, on lui demande d'executer lookup a son tour</li>
+</ul>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>clé recherchée </td></tr>
+    <tr><td class="paramname">source</td><td>mpi_rank du pair ayant initié la recherche de key </td></tr>
+    <tr><td class="paramname">me</td><td>pair executant lookup </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0ddf1224851353fc92bfbff6f499fa97" name="a0ddf1224851353fc92bfbff6f499fa97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ddf1224851353fc92bfbff6f499fa97">&#9670;&nbsp;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction de lancement de la simulation. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td></td></tr>
+    <tr><td class="paramname">argv</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>int </dd></dl>
+
+</div>
+</div>
+<a id="aa275ac8e5253bfc3150613b1d5483baa" name="aa275ac8e5253bfc3150613b1d5483baa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa275ac8e5253bfc3150613b1d5483baa">&#9670;&nbsp;</a></span>pair_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pair_init </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rang</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction commune executée par chaque pair, on initialise la struct pair en recevant les données du simulateur puis on boucle sur des recv tant que l'on a pas reçu de message de terminaison. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rang</td><td>rang mpi du pair qui s'initialise </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0cf0fd0ef9562c2ef1aef4dd9522b35f" name="a0cf0fd0ef9562c2ef1aef4dd9522b35f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cf0fd0ef9562c2ef1aef4dd9522b35f">&#9670;&nbsp;</a></span>random_hach()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void random_hach </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pairs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction de hachage random des id Les id_mpi seront liés à la case du tableau renvoyé </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>nombre d'id a calculer </td></tr>
+    <tr><td class="paramname">min</td><td>borne inf des id </td></tr>
+    <tr><td class="paramname">max</td><td>borne sup des id </td></tr>
+    <tr><td class="paramname">pairs</td><td>tableau de structure pair que l'on va remplir avec les id_chord générés </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a66b01f5833de13bafd945b22d1151234" name="a66b01f5833de13bafd945b22d1151234"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66b01f5833de13bafd945b22d1151234">&#9670;&nbsp;</a></span>receive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int receive </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>me</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction gerant les receive pour les pairs, on se bloque en MPI_Recv et apres on agit en fonction du TAG du message. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">me</td><td>pair recevant le message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Renvoie</dt><dd>-1 si on a reçu le message de terminaison, le pair sort de la boucle de recv de la fonction pair_init et se termine 0 sinon, on continue a recevoir des messages </dd></dl>
+
+</div>
+</div>
+<a id="a3743b936b4d80bb194f8bcd3290e9ddb" name="a3743b936b4d80bb194f8bcd3290e9ddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3743b936b4d80bb194f8bcd3290e9ddb">&#9670;&nbsp;</a></span>swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void swap </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fonction d'echange de deux valeurs pour le tri a bulle. </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pa</td><td>a mettre a la position pb </td></tr>
+    <tr><td class="paramname">pb</td><td>a mettre a la position pa </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa4ffd801262b2cddeeeec11afb5c8923" name="aa4ffd801262b2cddeeeec11afb5c8923"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4ffd801262b2cddeeeec11afb5c8923">&#9670;&nbsp;</a></span>trie_pairs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void trie_pairs </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structpair.html">pair</a> *&#160;</td>
+          <td class="paramname"><em>pairs</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>: Fonction triant un array de pairs en fonction de leur chord id </p>
+<dl class="params"><dt>Paramètres</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pairs</td><td>array de pairs que l'on modifie par adresse </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Généré par&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.3
+</small></address>
+</body>
+</html>
